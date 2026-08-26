@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand primitives */
+  --color-navy: #0a1a2f;
+  --color-navy-light: #152a45;
+  --color-gold: #c4a484;
+  --color-gold-light: #d4b894;
+  --color-gold-dark: #a8896a;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f5f5f5;
+  --color-surface-alt: #f8f7f5;
+
+  /*
+   * Semantic text tokens — change once, updates everywhere.
+   * Use text-heading / text-paragraph on light sections,
+   * text-heading-inverse / text-paragraph-inverse on dark sections.
+   */
+  --color-heading: #0a1a2f;
+  --color-heading-inverse: #ffffff;
+  --color-paragraph: #64748b;
+  --color-paragraph-muted: #94a3b8;
+  --color-paragraph-inverse: rgba(255, 255, 255, 0.8);
+  --color-label: #c4a484;
+  --color-logo: #0a1a2f;
+  --color-nav: #64748b;
+  --color-nav-active: #0a1a2f;
+
+  /* Legacy aliases (point to semantic tokens) */
+  --color-text-primary: var(--color-heading);
+  --color-text-body: var(--color-paragraph);
+  --color-text-muted: var(--color-paragraph-muted);
+  --color-text-inverse: var(--color-heading-inverse);
+
+  /* Borders & shadows */
+  --color-border: #e2e8f0;
+  --shadow-card: 0 4px 24px rgba(10, 26, 47, 0.08);
+  --shadow-card-hover: 0 8px 32px rgba(10, 26, 47, 0.12);
+
+  /* Layout */
+  --container-max: 1280px;
+  --section-py: 5rem;
+}
+
+@theme inline {
+  --color-navy: var(--color-navy);
+  --color-navy-light: var(--color-navy-light);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-gold-dark: var(--color-gold-dark);
+  --color-surface: var(--color-surface);
+  --color-surface-muted: var(--color-surface-muted);
+  --color-surface-alt: var(--color-surface-alt);
+  --color-heading: var(--color-heading);
+  --color-heading-inverse: var(--color-heading-inverse);
+  --color-paragraph: var(--color-paragraph);
+  --color-paragraph-muted: var(--color-paragraph-muted);
+  --color-paragraph-inverse: var(--color-paragraph-inverse);
+  --color-label: var(--color-label);
+  --color-logo: var(--color-logo);
+  --color-nav: var(--color-nav);
+  --color-nav-active: var(--color-nav-active);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-body: var(--color-text-body);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
+  --color-border: var(--color-border);
+  --font-sans: var(--font-inter);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-paragraph);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.6;
+}
