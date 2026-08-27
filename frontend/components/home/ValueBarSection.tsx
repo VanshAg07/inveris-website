@@ -1,44 +1,36 @@
-import {
-  User,
-  Network,
-  Layers,
-  TrendingUp,
-  Clock,
-  Handshake,
-} from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { valuePropositions } from "@/lib/content";
+import { HomeIcon, type HomeIconName } from "@/lib/home-icons";
+import { type HomeValueItem } from "@/lib/home-content";
 
-const iconMap = {
-  user: User,
-  network: Network,
-  layers: Layers,
-  trending: TrendingUp,
-  clock: Clock,
-  handshake: Handshake,
-};
+export function ValueBarSection({ items }: { items: HomeValueItem[] }) {
+  if (!items.length) return null;
 
-export function ValueBarSection() {
   return (
     <section className="bg-surface border-y border-border py-10 lg:py-12">
       <Container>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
-          {valuePropositions.map((item) => {
-            const Icon = iconMap[item.icon as keyof typeof iconMap];
-            return (
-              <div key={item.title} className="text-center space-y-3 px-2">
-                <div className="flex justify-center">
-                  <Icon className="w-8 h-8 text-gold stroke-[1.5]" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 lg:gap-4">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="group text-center space-y-3 px-3 py-5 rounded-xl border border-transparent bg-transparent transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.03] hover:border-border hover:bg-surface hover:shadow-[var(--shadow-card-hover)]"
+            >
+              <div className="flex justify-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 transition-all duration-300 group-hover:bg-gold/20 group-hover:scale-110">
+                  <HomeIcon
+                    name={item.icon as HomeIconName}
+                    size={28}
+                    className="text-gold transition-transform duration-300 group-hover:scale-110"
+                  />
                 </div>
-                <h3 className="text-sm font-bold text-navy leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-text-body leading-relaxed">
-                  {item.description}
-                </p>
               </div>
-            );
-          })}
+              <h3 className="text-sm font-bold text-navy leading-snug transition-colors duration-300 group-hover:text-gold-dark">
+                {item.title}
+              </h3>
+              <p className="text-xs text-text-body leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          ))}
         </div>
       </Container>
     </section>

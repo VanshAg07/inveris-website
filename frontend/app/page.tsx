@@ -3,19 +3,22 @@ import { ValueBarSection } from "@/components/home/ValueBarSection";
 import { AboutSection } from "@/components/home/AboutSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
 import { ApproachSection } from "@/components/home/ApproachSection";
-import { StatsSection } from "@/components/home/StatsSection";
 import { CtaSection } from "@/components/home/CtaSection";
+import { fetchHomeContent } from "@/lib/home-content";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const home = await fetchHomeContent();
+
   return (
     <>
-      <HeroSection />
-      <ValueBarSection />
-      <AboutSection />
-      <ServicesSection />
-      <ApproachSection />
-      <StatsSection />
-      <CtaSection />
+      <HeroSection content={home.hero} />
+      <ValueBarSection items={home.valuePropositions} />
+      <AboutSection content={home.about} />
+      <ServicesSection content={home.services} />
+      <ApproachSection content={home.approach} />
+      <CtaSection content={home.cta} />
     </>
   );
 }

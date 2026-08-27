@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
+import { PAGE_HERO_HEIGHT, PAGE_HERO_PADDING } from "@/components/shared/PageHero";
+import { cn } from "@/lib/cn";
 
 interface OverlayHeroProps {
   tag: string;
@@ -18,7 +20,12 @@ export function OverlayHero({
   imageAlt,
 }: OverlayHeroProps) {
   return (
-    <section className="relative min-h-[420px] lg:min-h-[480px] flex items-center overflow-hidden">
+    <section
+      className={cn(
+        "relative flex items-center overflow-hidden",
+        PAGE_HERO_HEIGHT
+      )}
+    >
       <Image
         src={image}
         alt={imageAlt}
@@ -27,9 +34,12 @@ export function OverlayHero({
         className="object-cover object-center"
         sizes="100vw"
       />
-      <div className="absolute inset-0 bg-navy/85" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-linear-to-r from-navy/70 from-[0%] via-navy/35 via-[40%] to-navy/10 to-[100%]"
+      />
 
-      <Container className="relative z-10 py-20 lg:py-24">
+      <Container className={cn("relative z-10", PAGE_HERO_PADDING)}>
         <div className="max-w-2xl space-y-5">
           <SectionTag light withLine>
             {tag}

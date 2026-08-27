@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { footerContent } from "@/lib/content";
+import { toTelHref, type FooterContent, type FooterSocialIcon } from "@/lib/footer-content";
 
-function SocialIcon({ icon }: { icon: "instagram" | "linkedin" | "youtube" }) {
+function SocialIcon({ icon }: { icon: FooterSocialIcon }) {
   const className = "w-4 h-4";
 
   if (icon === "instagram") {
@@ -32,8 +32,9 @@ function SocialIcon({ icon }: { icon: "instagram" | "linkedin" | "youtube" }) {
   );
 }
 
-export function Footer() {
-  const { contact } = footerContent;
+export function Footer({ content }: { content: FooterContent }) {
+  const { contact } = content;
+  const mobileHref = toTelHref(contact.mobile);
 
   return (
     <footer className="bg-navy text-paragraph-inverse mt-auto">
@@ -42,88 +43,110 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="inline-block">
               <span className="text-2xl lg:text-3xl font-bold font-serif text-heading-inverse tracking-wide">
-                {footerContent.companyName}
+                {content.companyName}
               </span>
             </Link>
-            <p className="text-sm leading-relaxed max-w-xs text-paragraph-inverse">
-              {footerContent.description}
-            </p>
+            {content.description ? (
+              <p className="text-sm leading-relaxed max-w-xs text-paragraph-inverse">
+                {content.description}
+              </p>
+            ) : null}
           </div>
 
-          {footerContent.links.map((group) => (
-            <div key={group.title}>
-              <h4 className="text-heading-inverse font-semibold text-sm mb-4">
-                {group.title}
-              </h4>
-              <ul className="space-y-2.5">
-                {group.items.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-paragraph-inverse hover:text-gold transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          {content.links.map((group) => (
+            <div key={group.id}>
+              {group.title ? (
+                <h4 className="text-heading-inverse font-semibold text-sm mb-4">
+                  {group.title}
+                </h4>
+              ) : null}
+              {group.items.length ? (
+                <ul className="space-y-2.5">
+                  {group.items.map((item) => (
+                    <li key={item.id}>
+                      <Link
+                        href={item.href || "/"}
+                        className="text-sm text-paragraph-inverse hover:text-gold transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           ))}
 
           <div>
-            <h4 className="text-heading-inverse font-semibold text-sm mb-4">
-              {contact.title}
-            </h4>
+            {contact.title ? (
+              <h4 className="text-heading-inverse font-semibold text-sm mb-4">
+                {contact.title}
+              </h4>
+            ) : null}
 
             <ul className="space-y-4">
-              <li className="flex gap-3">
-                <MapPin size={18} className="text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
-                <span className="text-sm leading-relaxed text-paragraph-inverse">
-                  {contact.location}
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Phone size={18} className="text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
-                <a
-                  href={contact.mobileHref}
-                  className="text-sm text-paragraph-inverse hover:text-gold transition-colors"
-                >
-                  {contact.mobile}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <Mail size={18} className="text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="text-sm text-paragraph-inverse hover:text-gold transition-colors break-all"
-                >
-                  {contact.email}
-                </a>
-              </li>
+              {contact.location ? (
+                <li className="flex gap-3">
+                  <MapPin size={18} className="text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
+                  <span className="text-sm leading-relaxed text-paragraph-inverse">
+                    {contact.location}
+                  </span>
+                </li>
+              ) : null}
+              {contact.mobile ? (
+                <li className="flex gap-3">
+                  <Phone size={18} className="text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
+                  {mobileHref ? (
+                    <a
+                      href={mobileHref}
+                      className="text-sm text-paragraph-inverse hover:text-gold transition-colors"
+                    >
+                      {contact.mobile}
+                    </a>
+                  ) : (
+                    <span className="text-sm text-paragraph-inverse">{contact.mobile}</span>
+                  )}
+                </li>
+              ) : null}
+              {contact.email ? (
+                <li className="flex gap-3">
+                  <Mail size={18} className="text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="text-sm text-paragraph-inverse hover:text-gold transition-colors break-all"
+                  >
+                    {contact.email}
+                  </a>
+                </li>
+              ) : null}
             </ul>
 
-            <div className="flex gap-3 mt-5">
-              {contact.social.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={item.label}
-                  className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-paragraph-inverse hover:border-gold hover:text-gold transition-colors"
-                >
-                  <SocialIcon icon={item.icon} />
-                </a>
-              ))}
-            </div>
+            {contact.social.length ? (
+              <div className="flex gap-3 mt-5">
+                {contact.social.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.href || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.label}
+                    className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-paragraph-inverse hover:border-gold hover:text-gold transition-colors"
+                  >
+                    <SocialIcon icon={item.icon} />
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
 
-        <div className="border-t border-white/10 py-6">
-          <p className="text-sm text-center text-paragraph-inverse">
-            {footerContent.copyright}
-          </p>
-        </div>
+        {content.copyright ? (
+          <div className="border-t border-white/10 py-6">
+            <p className="text-sm text-center text-paragraph-inverse">
+              {content.copyright}
+            </p>
+          </div>
+        ) : null}
       </Container>
     </footer>
   );

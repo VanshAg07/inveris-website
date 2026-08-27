@@ -1,17 +1,10 @@
-import { Search, PenLine, Play, BarChart3 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { IconCircle } from "@/components/ui/IconCircle";
-import { approachContent } from "@/lib/content";
+import { HomeIcon, type HomeIconName } from "@/lib/home-icons";
+import { type HomeApproachContent } from "@/lib/home-content";
 
-const iconMap = {
-  search: Search,
-  pen: PenLine,
-  play: Play,
-  chart: BarChart3,
-};
-
-export function ApproachSection() {
+export function ApproachSection({ content }: { content: HomeApproachContent }) {
   return (
     <section className="py-16 lg:py-24 bg-navy relative overflow-hidden">
       <div
@@ -25,38 +18,41 @@ export function ApproachSection() {
 
       <Container className="relative">
         <SectionHeading
-          tag={approachContent.tag}
-          title={approachContent.title}
+          tag={content.tag}
+          title={content.title}
           align="center"
           light
           className="mb-16"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative">
-          <div className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-px border-t-2 border-dashed border-gold/40" />
+        {content.steps.length ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative">
+            <div className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-px border-t-2 border-dashed border-gold/40" />
 
-          {approachContent.steps.map((step) => {
-            const Icon = iconMap[step.icon as keyof typeof iconMap];
-            return (
-              <div key={step.number} className="text-center space-y-4 relative">
+            {content.steps.map((step) => (
+              <div key={step.id} className="text-center space-y-4 relative">
                 <div className="flex justify-center">
                   <IconCircle variant="gold" size="lg">
-                    <Icon size={24} />
+                    <HomeIcon name={step.icon as HomeIconName} size={24} className="text-navy" />
                   </IconCircle>
                 </div>
 
                 <div>
-                  <span className="text-gold text-sm font-bold">{step.number}.</span>
+                  {step.number ? (
+                    <span className="text-gold text-sm font-bold">{step.number}.</span>
+                  ) : null}
                   <h3 className="text-white font-bold text-lg mt-1">{step.title}</h3>
                 </div>
 
-                <p className="text-white/70 text-sm leading-relaxed max-w-xs mx-auto">
-                  {step.description}
-                </p>
+                {step.description ? (
+                  <p className="text-white/70 text-sm leading-relaxed max-w-xs mx-auto">
+                    {step.description}
+                  </p>
+                ) : null}
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        ) : null}
       </Container>
     </section>
   );

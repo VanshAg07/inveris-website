@@ -44,8 +44,13 @@ Port 5000 is often used by AirPlay Receiver on macOS. The API defaults to **5001
 
 | Variable     | Default               | Description        |
 | ------------ | --------------------- | ------------------ |
-| `PORT`       | `5001`                | API port           |
-| `CLIENT_URL` | `http://localhost:3000` | Allowed CORS origin |
+| `PORT`                  | `5001`                    | API port           |
+| `CLIENT_URL`            | `http://localhost:3000`   | Allowed CORS origin |
+| `ADMIN_EMAIL`           | `admin@inveris.com`       | Admin login email |
+| `ADMIN_PASSWORD`        | `admin123`                | Admin login password |
+| `JWT_SECRET`            | —                         | JWT signing secret |
+| `MONGODB_URI`           | —                         | MongoDB Atlas connection string |
+| `IMAGEKIT_PRIVATE_KEY`  | —                         | ImageKit private API key |
 
 **frontend/.env.local**
 
@@ -111,6 +116,11 @@ git push -u origin main
    | --- | ----- |
    | `NODE_ENV` | `production` |
    | `CLIENT_URL` | `https://YOUR-VERCEL-URL.vercel.app` (update after Step 3) |
+   | `ADMIN_EMAIL` | your admin email |
+   | `ADMIN_PASSWORD` | a strong password |
+   | `JWT_SECRET` | a long random string |
+   | `MONGODB_URI` | MongoDB Atlas connection string |
+   | `IMAGEKIT_PRIVATE_KEY` | ImageKit private API key (`private_...`) |
 
    > Render sets `PORT` automatically — do not override it.
 
@@ -189,6 +199,8 @@ git push
 | Render cold start slow | Free tier sleeps after inactivity; first request may take ~30s |
 | Build fails on Vercel | Ensure **Root Directory** is `frontend`, not repo root |
 | Build fails on Render | Ensure **Root Directory** is `server` |
+| API fails to start | Set `MONGODB_URI` and allow Render's IPs (or `0.0.0.0/0`) in Atlas Network Access |
+| Image upload fails | Set `IMAGEKIT_PRIVATE_KEY` on Render |
 
 ---
 
@@ -198,8 +210,13 @@ git push
 
 | Variable     | Default               | Description        |
 | ------------ | --------------------- | ------------------ |
-| `PORT`       | `5001`                | API port (local only; Render sets this in production) |
-| `CLIENT_URL` | `http://localhost:3000` | Allowed CORS origin(s), comma-separated |
+| `PORT`                  | `5001`                    | API port (local only; Render sets this in production) |
+| `CLIENT_URL`            | `http://localhost:3000`   | Allowed CORS origin(s), comma-separated |
+| `ADMIN_EMAIL`           | `admin@inveris.com`       | Admin login email |
+| `ADMIN_PASSWORD`        | `admin123`                | Admin login password |
+| `JWT_SECRET`            | —                         | JWT signing secret |
+| `MONGODB_URI`           | —                         | MongoDB Atlas connection string |
+| `IMAGEKIT_PRIVATE_KEY`  | —                         | ImageKit private API key |
 
 **frontend/.env.local**
 

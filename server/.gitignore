@@ -4,3 +4,7 @@ node_modules/
 !.env.example
 npm-debug.log*
 *.log
+uploads/*
+!uploads/.gitkeep
+data/home.json
+data/footer.json

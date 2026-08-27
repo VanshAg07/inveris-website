@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
 import { cn } from "@/lib/cn";
+import { PAGE_HERO_HEIGHT, PAGE_HERO_PADDING } from "@/components/shared/PageHero";
 import { approachPageContent } from "@/lib/content";
 
 function PathStepBadge({
@@ -40,8 +41,8 @@ export function ApproachHeroSection() {
         }}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[480px] lg:min-h-[540px]">
-        <Container className="flex items-center py-16 lg:py-20 lg:pr-12 relative z-10">
+      <div className={cn("grid grid-cols-1 lg:grid-cols-2", PAGE_HERO_HEIGHT)}>
+        <Container className={cn("flex items-center lg:pr-12 relative z-10", PAGE_HERO_PADDING)}>
           <div className="max-w-xl space-y-5">
             <SectionTag withLine>{hero.tag}</SectionTag>
 

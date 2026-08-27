@@ -65,6 +65,7 @@ export const aboutContent = {
   description:
     "Inveris Solutions LLP helps businesses simplify complexity by bringing consulting, recruitment, compliance, and audit together under one roof. Instead of juggling multiple vendors, you get connected expertise and one accountable partner focused on practical results.",
   cta: { label: "Learn More About Us", href: "/about" },
+  backgroundImage: "/images/about-building.jpg",
   features: [
     {
       title: "Integrated Expertise",
@@ -100,6 +101,7 @@ export const servicesContent = {
     {
       title: "Management Consulting",
       icon: "briefcase",
+      image: "/images/service-consulting.jpg",
       items: [
         "Business Growth Strategies",
         "Operational Efficiency",
@@ -111,6 +113,7 @@ export const servicesContent = {
     {
       title: "Recruitment",
       icon: "users",
+      image: "/images/service-recruitment.jpg",
       items: [
         "Executive Search",
         "Specialized Talent Acquisition",
@@ -122,6 +125,7 @@ export const servicesContent = {
     {
       title: "Compliance & Financial Services",
       icon: "chart",
+      image: "/images/service-compliance.jpg",
       items: [
         "Regulatory Compliance",
         "Financial Planning & Analysis",
@@ -133,6 +137,7 @@ export const servicesContent = {
     {
       title: "Internal Audit",
       icon: "search",
+      image: "/images/service-audit.jpg",
       items: [
         "Risk-Based Auditing",
         "Process Reviews",
@@ -266,8 +271,8 @@ export const industriesPageContent = {
     title: "Industry Expertise. Business Impact.",
     description:
       "We partner with organizations across diverse sectors—bringing integrated consulting, talent, compliance, and audit expertise tailored to the unique demands of your industry.",
-    image: "/images/industries-hero.jpg",
-    imageAlt: "City skyline at dusk",
+    image: "/images/leadership-hero.jpg",
+    imageAlt: "Leadership team in boardroom overlooking city skyline",
   },
   industriesWeServe: {
     tag: "INDUSTRIES WE SERVE",
@@ -538,7 +543,7 @@ export const leadershipPageContent = {
     titleAccent: "Partners in Your Growth.",
     paragraphs: [
       "Inveris was founded by professionals who saw a common challenge businesses face—managing multiple consultants, agencies, and advisors across critical functions.",
-      "They envisioned a better way: one integrated partner capable of supporting every stage of a company's growth journey.",
+      // "They envisioned a better way: one integrated partner capable of supporting every stage of a company's growth journey.",
     ],
     image: "/images/leadership-hero.jpg",
     imageAlt: "Leadership team in boardroom overlooking city skyline",
@@ -764,13 +769,6 @@ export const contactPageContent = {
     ],
   },
 };
-
-export const statsContent = [
-  { value: "100+", label: "Businesses Partnered", icon: "building" },
-  { value: "4", label: "Core Service Lines", icon: "grid" },
-  { value: "95%", label: "Client Retention", icon: "heart" },
-  { value: "1", label: "Integrated Partner", icon: "link" },
-];
 
 export const ctaContent = {
   title: "Let's Build What's Next",

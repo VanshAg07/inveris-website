@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { NavProvider } from "@/components/providers/NavProvider";
+import { SiteFrame } from "@/components/layout/SiteFrame";
 import { siteConfig } from "@/lib/content";
+import { fetchFooterContent } from "@/lib/footer-content";
 import "./globals.css";
 
 const inter = Inter({
@@ -47,15 +46,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const footer = await fetchFooterContent();
+
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <NavProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </NavProvider>
+        <SiteFrame footer={footer}>{children}</SiteFrame>
       </body>
     </html>
   );
