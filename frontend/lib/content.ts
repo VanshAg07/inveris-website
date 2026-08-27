@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "INVERIS SOLUTIONS LLP",
   shortName: "INVERIS",
-  url: "https://inverissolutions.com",
+  url: "https://www.inverissolutions.com",
   tagline: "One Partner. Connected Expertise.",
   description:
     "Integrated business solutions across strategy, operations, finance, compliance, and talent — one accountable partner for your growth.",
