@@ -1,10 +1,14 @@
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
 import { ApproachStepCard } from "@/components/approach/ApproachStepCard";
-import { approachPageContent } from "@/lib/content";
+import type { ApproachFourStepsContent } from "@/lib/approach-content";
 
-export function FourStepSection() {
-  const { fourSteps } = approachPageContent;
+export function FourStepSection({
+  content,
+}: {
+  content: ApproachFourStepsContent;
+}) {
+  const fourSteps = content;
 
   return (
     <section className="py-16 lg:py-24 bg-navy relative overflow-hidden">
@@ -32,29 +36,15 @@ export function FourStepSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 xl:gap-6 relative">
-          <div
-            className="hidden xl:block absolute top-7 left-[12.5%] right-[12.5%] h-px border-t border-dashed border-white/30"
-            aria-hidden="true"
-          />
-
-          {fourSteps.steps.map((step, index) => (
-            <div key={step.number} className="relative">
-              {index < fourSteps.steps.length - 1 && (
-                <div
-                  className="hidden xl:block absolute top-7 -right-3 z-20 text-white/40 text-xs"
-                  aria-hidden="true"
-                >
-                  →
-                </div>
-              )}
-              <ApproachStepCard
-                number={step.number}
-                title={step.title}
-                description={step.description}
-                icon={step.icon}
-                items={step.items}
-              />
-            </div>
+          {fourSteps.steps.map((step) => (
+            <ApproachStepCard
+              key={step.id}
+              number={step.number}
+              title={step.title}
+              description={step.description}
+              icon={step.icon}
+              items={step.items}
+            />
           ))}
         </div>
       </Container>

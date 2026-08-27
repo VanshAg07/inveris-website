@@ -1,10 +1,12 @@
 import { Container } from "@/components/ui/Container";
 import { MissionVisionCard } from "@/components/about/MissionVisionCard";
-import { aboutPageContent } from "@/lib/content";
+import type { AboutMissionVisionContent } from "@/lib/about-content";
 
-export function MissionVisionSection() {
-  const { missionVision } = aboutPageContent;
-
+export function MissionVisionSection({
+  content,
+}: {
+  content: AboutMissionVisionContent;
+}) {
   return (
     <section className="py-16 lg:py-24 bg-surface-muted">
       <Container>
@@ -37,7 +39,7 @@ export function MissionVisionSection() {
           </div>
 
           <div className="space-y-4 text-text-body leading-relaxed">
-            {missionVision.intro.paragraphs.map((paragraph) => (
+            {content.intro.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
@@ -45,18 +47,18 @@ export function MissionVisionSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <MissionVisionCard
-            tag={missionVision.mission.tag}
-            title={missionVision.mission.title}
-            icon={missionVision.mission.icon}
-            items={missionVision.mission.items}
-            footer={missionVision.mission.footer}
+            tag={content.mission.tag}
+            title={content.mission.title}
+            icon={content.mission.icon}
+            items={content.mission.items}
+            footer={content.mission.footer}
           />
           <MissionVisionCard
-            tag={missionVision.vision.tag}
-            title={missionVision.vision.title}
-            icon={missionVision.vision.icon}
-            items={missionVision.vision.items}
-            footer={missionVision.vision.footer}
+            tag={content.vision.tag}
+            title={content.vision.title}
+            icon={content.vision.icon}
+            items={content.vision.items}
+            footer={content.vision.footer}
           />
         </div>
       </Container>

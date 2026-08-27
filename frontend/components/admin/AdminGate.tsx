@@ -113,7 +113,7 @@ export function AdminOverview() {
     <div className="space-y-4">
       <h1 className="text-2xl font-bold text-navy">Dashboard</h1>
       <p className="text-sm text-text-body">
-        This panel is the live editor for the website. Edit Home and Footer now; more pages can be added the same way.
+        This panel is the live editor for the website. Edit Home, About, Services, Industries, Approach, Leadership, and Footer.
       </p>
       <div className="flex flex-wrap gap-3">
         <Link
@@ -121,6 +121,36 @@ export function AdminOverview() {
           className="inline-flex rounded-md bg-navy px-4 py-2 text-sm font-semibold text-white"
         >
           Edit home page
+        </Link>
+        <Link
+          href="/admin/about"
+          className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-semibold text-navy"
+        >
+          Edit about page
+        </Link>
+        <Link
+          href="/admin/services"
+          className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-semibold text-navy"
+        >
+          Edit services page
+        </Link>
+        <Link
+          href="/admin/industries"
+          className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-semibold text-navy"
+        >
+          Edit industries page
+        </Link>
+        <Link
+          href="/admin/approach"
+          className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-semibold text-navy"
+        >
+          Edit approach page
+        </Link>
+        <Link
+          href="/admin/leadership"
+          className="inline-flex rounded-md border border-border px-4 py-2 text-sm font-semibold text-navy"
+        >
+          Edit leadership page
         </Link>
         <Link
           href="/admin/footer"

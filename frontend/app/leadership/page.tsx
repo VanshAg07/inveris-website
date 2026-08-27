@@ -3,7 +3,7 @@ import { LeadershipHeroSection } from "@/components/leadership/LeadershipHeroSec
 import { LeadershipPhilosophySection } from "@/components/leadership/LeadershipPhilosophySection";
 import { LeadershipTeamSection } from "@/components/leadership/LeadershipTeamSection";
 import { PageCtaBanner } from "@/components/shared/PageCtaBanner";
-import { leadershipPageContent } from "@/lib/content";
+import { fetchLeadershipContent } from "@/lib/leadership-content";
 
 export const metadata = {
   title: "Leadership",
@@ -11,19 +11,21 @@ export const metadata = {
     "Meet the leadership team at Inveris Solutions LLP — visionaries committed to integrated business partnerships.",
 };
 
-export default function LeadershipPage() {
-  const { cta } = leadershipPageContent;
+export const dynamic = "force-dynamic";
+
+export default async function LeadershipPage() {
+  const leadership = await fetchLeadershipContent();
 
   return (
     <>
-      <LeadershipHeroSection />
-      <LeadershipPhilosophySection />
-      <LeadershipTeamSection />
-      <CoreValuesSection />
+      <LeadershipHeroSection content={leadership.hero} />
+      <LeadershipPhilosophySection content={leadership.philosophy} />
+      <LeadershipTeamSection content={leadership.team} />
+      <CoreValuesSection content={leadership.values} />
       <PageCtaBanner
-        title={cta.title}
-        description={cta.description}
-        cta={cta.cta}
+        title={leadership.cta.title}
+        description={leadership.cta.description}
+        cta={leadership.cta.cta}
       />
     </>
   );

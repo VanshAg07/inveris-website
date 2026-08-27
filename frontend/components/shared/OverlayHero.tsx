@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { CmsImage } from "@/components/ui/CmsImage";
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
 import { PAGE_HERO_HEIGHT, PAGE_HERO_PADDING } from "@/components/shared/PageHero";
@@ -26,7 +26,7 @@ export function OverlayHero({
         PAGE_HERO_HEIGHT
       )}
     >
-      <Image
+      <CmsImage
         src={image}
         alt={imageAlt}
         fill

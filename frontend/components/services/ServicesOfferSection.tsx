@@ -1,28 +1,26 @@
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
 import { ServiceLineCard } from "@/components/services/ServiceLineCard";
-import { servicesPageContent } from "@/lib/content";
+import type { ServicesOfferContent } from "@/lib/services-content";
 
-export function ServicesOfferSection() {
-  const { offer } = servicesPageContent;
-
+export function ServicesOfferSection({ content }: { content: ServicesOfferContent }) {
   return (
     <section className="py-16 lg:py-24 bg-surface">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-12 lg:mb-16 items-start">
           <div className="space-y-4">
-            <SectionTag withLine>{offer.tag}</SectionTag>
+            <SectionTag withLine>{content.tag}</SectionTag>
             <h2 className="text-3xl md:text-4xl font-bold text-heading leading-tight">
-              {offer.title}
+              {content.title}
             </h2>
           </div>
-          <p className="text-paragraph leading-relaxed lg:pt-8">{offer.description}</p>
+          <p className="text-paragraph leading-relaxed lg:pt-8">{content.description}</p>
         </div>
 
         <div className="space-y-6">
-          {offer.serviceLines.map((service) => (
+          {content.serviceLines.map((service) => (
             <ServiceLineCard
-              key={service.title}
+              key={service.id}
               title={service.title}
               description={service.description}
               items={service.items}

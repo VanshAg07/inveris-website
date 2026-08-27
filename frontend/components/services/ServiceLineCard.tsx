@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { Check, Crown, Shield, ShieldCheck, Users } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { IconCircle } from "@/components/ui/IconCircle";
+import { CmsImage } from "@/components/ui/CmsImage";
 import { cn } from "@/lib/cn";
 
 type ServiceIcon = "consulting" | "recruitment" | "compliance" | "audit";
@@ -11,7 +11,7 @@ interface ServiceLineCardProps {
   description: string;
   items: string[];
   image: string;
-  icon: ServiceIcon;
+  icon: string;
   imagePosition?: "left" | "right";
 }
 
@@ -30,7 +30,7 @@ export function ServiceLineCard({
   icon,
   imagePosition = "right",
 }: ServiceLineCardProps) {
-  const Icon = iconMap[icon];
+  const Icon = iconMap[icon as ServiceIcon] ?? Crown;
   const imageFirst = imagePosition === "left";
 
   return (
@@ -43,7 +43,7 @@ export function ServiceLineCard({
       >
         {imageFirst && (
           <div className="relative h-56 lg:h-auto min-h-[240px] order-1 lg:order-none">
-            <Image
+            <CmsImage
               src={image}
               alt={title}
               fill
@@ -83,7 +83,7 @@ export function ServiceLineCard({
 
         {!imageFirst && (
           <div className="relative h-56 lg:h-auto min-h-[240px]">
-            <Image
+            <CmsImage
               src={image}
               alt={title}
               fill

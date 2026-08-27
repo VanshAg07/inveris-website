@@ -2,7 +2,7 @@ import { IndustriesGridSection } from "@/components/industries/IndustriesGridSec
 import { IndustryValueBar } from "@/components/industries/IndustryValueBar";
 import { OverlayHero } from "@/components/shared/OverlayHero";
 import { PageCtaBanner } from "@/components/shared/PageCtaBanner";
-import { industriesPageContent } from "@/lib/content";
+import { fetchIndustriesContent } from "@/lib/industries-content";
 
 export const metadata = {
   title: "Industries",
@@ -10,25 +10,26 @@ export const metadata = {
     "Inveris Solutions LLP serves manufacturing, healthcare, technology, financial services, and more with integrated industry expertise.",
 };
 
-export default function IndustriesPage() {
-  const { hero, cta } = industriesPageContent;
+export const dynamic = "force-dynamic";
+
+export default async function IndustriesPage() {
+  const industries = await fetchIndustriesContent();
 
   return (
     <>
       <OverlayHero
-        tag={hero.tag}
-        title={hero.title}
-        description={hero.description}
-        image={hero.image}
-        imageAlt={hero.imageAlt}
+        tag={industries.hero.tag}
+        title={industries.hero.title}
+        description={industries.hero.description}
+        image={industries.hero.image}
+        imageAlt={industries.hero.imageAlt}
       />
-      <IndustriesGridSection />
-      <IndustryValueBar />
+      <IndustriesGridSection content={industries.industriesWeServe} />
+      <IndustryValueBar content={industries.valueBar} />
       <PageCtaBanner
-        title={cta.title}
-        description={cta.description}
-        cta={cta.cta}
-        phone={cta.phone}
+        title={industries.cta.title}
+        description={industries.cta.description}
+        cta={industries.cta.cta}
       />
     </>
   );

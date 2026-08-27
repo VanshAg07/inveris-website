@@ -1,21 +1,16 @@
 import { Container } from "@/components/ui/Container";
 import { ExpertiseDiagram } from "@/components/approach/ExpertiseDiagram";
-import { approachPageContent } from "@/lib/content";
+import type { ApproachConnectedExpertiseContent } from "@/lib/approach-content";
 
-export function ConnectedExpertiseSection() {
-  const { connectedExpertise } = approachPageContent;
+export function ConnectedExpertiseSection({
+  content,
+}: {
+  content: ApproachConnectedExpertiseContent;
+}) {
+  const connectedExpertise = content;
 
   return (
     <section className="py-16 lg:py-24 bg-surface-alt relative overflow-hidden">
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        aria-hidden="true"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q25 30 50 50 T100 50' fill='none' stroke='%230a1a2f' stroke-width='0.5'/%3E%3C/svg%3E")`,
-          backgroundSize: "200px 200px",
-        }}
-      />
-
       <Container className="relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="space-y-6">

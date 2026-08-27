@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { CmsImage } from "@/components/ui/CmsImage";
 import { SectionTag } from "@/components/ui/SectionTag";
 import { cn } from "@/lib/cn";
 import { PAGE_HERO_HEIGHT, PAGE_HERO_PADDING } from "@/components/shared/PageHero";
-import { approachPageContent } from "@/lib/content";
+import type { ApproachHeroContent } from "@/lib/approach-content";
 
 function PathStepBadge({
   number,
@@ -27,20 +27,11 @@ function PathStepBadge({
   );
 }
 
-export function ApproachHeroSection() {
-  const { hero } = approachPageContent;
+export function ApproachHeroSection({ content }: { content: ApproachHeroContent }) {
+  const hero = content;
 
   return (
     <section className="relative overflow-hidden bg-surface-alt">
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        aria-hidden="true"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q25 30 50 50 T100 50' fill='none' stroke='%230a1a2f' stroke-width='0.5'/%3E%3Cpath d='M0 70 Q25 50 50 70 T100 70' fill='none' stroke='%230a1a2f' stroke-width='0.5'/%3E%3C/svg%3E")`,
-          backgroundSize: "200px 200px",
-        }}
-      />
-
       <div className={cn("grid grid-cols-1 lg:grid-cols-2", PAGE_HERO_HEIGHT)}>
         <Container className={cn("flex items-center lg:pr-12 relative z-10", PAGE_HERO_PADDING)}>
           <div className="max-w-xl space-y-5">
@@ -57,9 +48,9 @@ export function ApproachHeroSection() {
         </Container>
 
         <div className="relative h-80 lg:h-auto min-h-[320px]">
-          <Image
+          <CmsImage
             src={hero.image}
-            alt={hero.imageAlt}
+            alt={hero.imageAlt || hero.title}
             fill
             priority
             className="object-cover object-center"
@@ -94,7 +85,7 @@ export function ApproachHeroSection() {
 
           {hero.pathSteps.map((step) => (
             <PathStepBadge
-              key={step.number}
+              key={step.id}
               number={step.number}
               title={step.title}
               className={step.position}

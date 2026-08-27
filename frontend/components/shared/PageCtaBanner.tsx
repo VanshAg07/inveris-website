@@ -1,4 +1,4 @@
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
@@ -6,10 +6,9 @@ interface PageCtaBannerProps {
   title: string;
   description: string;
   cta: { label: string; href: string };
-  phone?: string;
 }
 
-export function PageCtaBanner({ title, description, cta, phone }: PageCtaBannerProps) {
+export function PageCtaBanner({ title, description, cta }: PageCtaBannerProps) {
   return (
     <section className="relative overflow-hidden bg-navy">
       <div
@@ -82,15 +81,6 @@ export function PageCtaBanner({ title, description, cta, phone }: PageCtaBannerP
               {cta.label}
               <ArrowRight size={18} />
             </Button>
-            {phone && (
-              <a
-                href={`tel:${phone.replace(/\s/g, "")}`}
-                className="inline-flex items-center gap-2 text-sm text-paragraph-inverse hover:text-gold transition-colors"
-              >
-                <Phone size={16} />
-                {phone}
-              </a>
-            )}
           </div>
         </div>
       </Container>

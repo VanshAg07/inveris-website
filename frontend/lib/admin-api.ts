@@ -1,3 +1,8 @@
+import type { AboutPageContent } from "@/lib/about-content";
+import type { ApproachPageContent } from "@/lib/approach-content";
+import type { LeadershipPageContent } from "@/lib/leadership-content";
+import type { ServicesPageContent } from "@/lib/services-content";
+import type { IndustriesPageContent } from "@/lib/industries-content";
 import { getApiBaseUrl, type HomeContent } from "@/lib/home-content";
 import type { FooterContent } from "@/lib/footer-content";
 
@@ -58,6 +63,46 @@ export async function saveHomeContent(content: HomeContent) {
   return data.content as HomeContent;
 }
 
+export async function saveAboutContent(content: AboutPageContent) {
+  const data = await adminFetch("/api/content/about", {
+    method: "PUT",
+    body: JSON.stringify(content),
+  });
+  return data.content as AboutPageContent;
+}
+
+export async function saveServicesContent(content: ServicesPageContent) {
+  const data = await adminFetch("/api/content/services", {
+    method: "PUT",
+    body: JSON.stringify(content),
+  });
+  return data.content as ServicesPageContent;
+}
+
+export async function saveIndustriesContent(content: IndustriesPageContent) {
+  const data = await adminFetch("/api/content/industries", {
+    method: "PUT",
+    body: JSON.stringify(content),
+  });
+  return data.content as IndustriesPageContent;
+}
+
+export async function saveApproachContent(content: ApproachPageContent) {
+  const data = await adminFetch("/api/content/approach", {
+    method: "PUT",
+    body: JSON.stringify(content),
+  });
+  return data.content as ApproachPageContent;
+}
+
+export async function saveLeadershipContent(content: LeadershipPageContent) {
+  const data = await adminFetch("/api/content/leadership", {
+    method: "PUT",
+    body: JSON.stringify(content),
+  });
+  return data.content as LeadershipPageContent;
+}
+
 export async function saveFooterContent(content: FooterContent) {
   const data = await adminFetch("/api/content/footer", {
     method: "PUT",
@@ -74,4 +119,12 @@ export async function uploadAdminImage(file: File) {
     body: form,
   });
   return data.url as string;
+}
+
+export async function deleteAdminImage(url: string) {
+  if (!url || !/^https?:\/\/[^/]*imagekit\.io\//i.test(url)) return;
+  await adminFetch("/api/upload/delete", {
+    method: "POST",
+    body: JSON.stringify({ url }),
+  });
 }

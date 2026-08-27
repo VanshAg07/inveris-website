@@ -2,7 +2,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { PageCtaBanner } from "@/components/shared/PageCtaBanner";
 import { ServicesOfferSection } from "@/components/services/ServicesOfferSection";
 import { WhyItMattersSection } from "@/components/services/WhyItMattersSection";
-import { servicesPageContent } from "@/lib/content";
+import { fetchServicesContent } from "@/lib/services-content";
 
 export const metadata = {
   title: "Services",
@@ -10,24 +10,26 @@ export const metadata = {
     "Explore Inveris Solutions LLP integrated service lines — management consulting, recruitment, compliance & financial services, and internal audit.",
 };
 
-export default function ServicesPage() {
-  const { hero, cta } = servicesPageContent;
+export const dynamic = "force-dynamic";
+
+export default async function ServicesPage() {
+  const services = await fetchServicesContent();
 
   return (
     <>
       <PageHero
-        tag={hero.tag}
-        title={hero.title}
-        description={hero.description}
-        image={hero.image}
-        imageAlt={hero.imageAlt}
+        tag={services.hero.tag}
+        title={services.hero.title}
+        description={services.hero.description}
+        image={services.hero.image}
+        imageAlt={services.hero.imageAlt}
       />
-      <ServicesOfferSection />
-      <WhyItMattersSection />
+      <ServicesOfferSection content={services.offer} />
+      <WhyItMattersSection content={services.whyItMatters} />
       <PageCtaBanner
-        title={cta.title}
-        description={cta.description}
-        cta={cta.cta}
+        title={services.cta.title}
+        description={services.cta.description}
+        cta={services.cta.cta}
       />
     </>
   );

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { resolveMediaUrl } from "@/lib/home-content";
-import { uploadAdminImage } from "@/lib/admin-api";
+import { deleteAdminImage, uploadAdminImage } from "@/lib/admin-api";
 
 const inputClass =
   "w-full rounded-md border border-border bg-white px-3 py-2 text-sm text-navy outline-none focus:border-gold";
@@ -51,21 +51,42 @@ export function ImageField({
   onChange: (value: string) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  /** Uploads created in this field session — safe to delete immediately when replaced. */
+  const sessionUploadsRef = useRef<Set<string>>(new Set());
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const preview = resolveMediaUrl(value);
+
+  async function removeSessionUpload(url: string) {
+    if (!url || !sessionUploadsRef.current.has(url)) return;
+    sessionUploadsRef.current.delete(url);
+    try {
+      await deleteAdminImage(url);
+    } catch {
+      // Save-time cleanup will still remove unused ImageKit files.
+    }
+  }
 
   async function handleFile(file: File) {
     setError("");
     setUploading(true);
     try {
+      const previous = value;
       const url = await uploadAdminImage(file);
+      sessionUploadsRef.current.add(url);
       onChange(url);
+      await removeSessionUpload(previous);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setUploading(false);
     }
+  }
+
+  async function handleDelete() {
+    const previous = value;
+    onChange("");
+    await removeSessionUpload(previous);
   }
 
   return (
@@ -96,7 +117,7 @@ export function ImageField({
           <button
             type="button"
             className="rounded-md border border-border px-3 py-1.5 text-xs font-semibold text-navy"
-            onClick={() => onChange("")}
+            onClick={() => void handleDelete()}
           >
             Delete image
           </button>

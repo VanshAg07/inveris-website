@@ -1,19 +1,23 @@
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { CmsImage } from "@/components/ui/CmsImage";
 import { SectionTag } from "@/components/ui/SectionTag";
 import { PAGE_HERO_HEIGHT, PAGE_HERO_PADDING } from "@/components/shared/PageHero";
-import { leadershipPageContent } from "@/lib/content";
+import type { LeadershipHeroContent } from "@/lib/leadership-content";
 import { cn } from "@/lib/cn";
 
-export function LeadershipHeroSection() {
-  const { hero } = leadershipPageContent;
+export function LeadershipHeroSection({
+  content,
+}: {
+  content: LeadershipHeroContent;
+}) {
+  const hero = content;
 
   return (
     <section className="relative bg-navy overflow-hidden">
       <div className="absolute inset-y-0 right-0 hidden lg:block w-[78%]">
-        <Image
+        <CmsImage
           src={hero.image}
-          alt={hero.imageAlt}
+          alt={hero.imageAlt || hero.titleWhite}
           fill
           priority
           className="object-cover object-center"
@@ -48,17 +52,22 @@ export function LeadershipHeroSection() {
               </h1>
 
               <div className="space-y-4">
-                <p className="text-base md:text-lg text-paragraph-inverse leading-relaxed">
-                  {hero.paragraphs[0]}
-                </p>
+                {hero.paragraphs.map((paragraph, index) => (
+                  <p
+                    key={`hero-p-${index}`}
+                    className="text-base md:text-lg text-paragraph-inverse leading-relaxed"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
               </div>
             </div>
           </div>
 
           <div className="relative h-72 min-h-[300px] lg:hidden">
-            <Image
+            <CmsImage
               src={hero.image}
-              alt={hero.imageAlt}
+              alt={hero.imageAlt || hero.titleWhite}
               fill
               priority
               className="object-cover object-center"

@@ -3,6 +3,11 @@ const multer = require("multer");
 const { toFile } = require("@imagekit/nodejs");
 const requireAuth = require("../middleware/requireAuth");
 const { getImageKit } = require("../lib/imagekit");
+const {
+  deleteImageKitUrl,
+  deleteImageKitUrls,
+  isImageKitUrl,
+} = require("../lib/imagekitCleanup");
 
 const router = express.Router();
 
@@ -45,6 +50,34 @@ router.post("/", requireAuth, (req, res) => {
       return res.status(500).json({ success: false, message: "Failed to upload image" });
     }
   });
+});
+
+router.post("/delete", requireAuth, async (req, res) => {
+  const url = typeof req.body?.url === "string" ? req.body.url : "";
+  const urls = Array.isArray(req.body?.urls) ? req.body.urls : [];
+
+  const targets = [...(url ? [url] : []), ...urls].filter(
+    (entry) => typeof entry === "string" && isImageKitUrl(entry)
+  );
+
+  if (!targets.length) {
+    return res.status(400).json({
+      success: false,
+      message: "Provide an ImageKit url or urls array to delete",
+    });
+  }
+
+  try {
+    if (targets.length === 1) {
+      await deleteImageKitUrl(targets[0]);
+    } else {
+      await deleteImageKitUrls(targets);
+    }
+    return res.json({ success: true });
+  } catch (error) {
+    console.error("[ImageKit delete]", error);
+    return res.status(500).json({ success: false, message: "Failed to delete image" });
+  }
 });
 
 module.exports = router;

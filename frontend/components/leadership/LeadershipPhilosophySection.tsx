@@ -1,7 +1,7 @@
 import { BarChart3, ShieldCheck, Target, User } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
-import { leadershipPageContent } from "@/lib/content";
+import type { LeadershipPhilosophyContent } from "@/lib/leadership-content";
 
 const iconMap = {
   user: User,
@@ -10,8 +10,12 @@ const iconMap = {
   chart: BarChart3,
 };
 
-export function LeadershipPhilosophySection() {
-  const { philosophy } = leadershipPageContent;
+export function LeadershipPhilosophySection({
+  content,
+}: {
+  content: LeadershipPhilosophyContent;
+}) {
+  const philosophy = content;
 
   return (
     <section className="py-16 lg:py-24 bg-surface-alt">
@@ -27,9 +31,9 @@ export function LeadershipPhilosophySection() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {philosophy.items.map((item) => {
-              const Icon = iconMap[item.icon];
+              const Icon = iconMap[item.icon as keyof typeof iconMap] ?? Target;
               return (
-                <div key={item.title} className="flex gap-4">
+                <div key={item.id} className="flex gap-4">
                   <div className="w-12 h-12 rounded-full bg-surface-alt border border-border flex items-center justify-center shrink-0">
                     <Icon size={22} className="text-gold" strokeWidth={1.5} />
                   </div>

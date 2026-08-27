@@ -100,11 +100,6 @@ export function HomeEditor({ initialContent }: { initialContent: HomeContent }) 
           value={content.hero.backgroundImage}
           onChange={(v) => updateHero("backgroundImage", v)}
         />
-        <TextField
-          label="Background image alt text"
-          value={content.hero.backgroundImageAlt}
-          onChange={(v) => updateHero("backgroundImageAlt", v)}
-        />
       </AdminSection>
 
       <AdminSection title="Value propositions">
@@ -457,13 +452,6 @@ export function HomeEditor({ initialContent }: { initialContent: HomeContent }) 
           label="Image"
           value={content.cta.image}
           onChange={(v) => setContent((prev) => ({ ...prev, cta: { ...prev.cta, image: v } }))}
-        />
-        <TextField
-          label="Image alt text"
-          value={content.cta.imageAlt}
-          onChange={(v) =>
-            setContent((prev) => ({ ...prev, cta: { ...prev.cta, imageAlt: v } }))
-          }
         />
       </AdminSection>
 

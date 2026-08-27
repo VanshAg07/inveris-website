@@ -1,5 +1,5 @@
 import { cn } from "@/lib/cn";
-import Image from "next/image";
+import { CmsImage } from "@/components/ui/CmsImage";
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
 
@@ -18,7 +18,7 @@ export function PageHero({ tag, title, description, image, imageAlt }: PageHeroP
   return (
     <section className="relative bg-navy overflow-hidden">
       <div className="absolute inset-y-0 right-0 hidden lg:block w-[78%]">
-        <Image
+        <CmsImage
           src={image}
           alt={imageAlt}
           fill
@@ -59,7 +59,7 @@ export function PageHero({ tag, title, description, image, imageAlt }: PageHeroP
           </div>
 
           <div className="relative h-64 min-h-[240px] lg:hidden">
-            <Image
+            <CmsImage
               src={image}
               alt={imageAlt}
               fill

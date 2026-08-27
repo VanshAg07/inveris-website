@@ -7,7 +7,8 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
-import { leadershipPageContent } from "@/lib/content";
+import type { LeadershipValuesContent } from "@/lib/leadership-content";
+import { cn } from "@/lib/cn";
 
 const iconMap = {
   handshake: Handshake,
@@ -17,8 +18,20 @@ const iconMap = {
   mountain: Mountain,
 };
 
-export function CoreValuesSection() {
-  const { values } = leadershipPageContent;
+function valuesGridClass(count: number) {
+  if (count <= 1) return "lg:grid-cols-1";
+  if (count === 2) return "lg:grid-cols-2";
+  if (count === 3) return "lg:grid-cols-3";
+  if (count === 4) return "lg:grid-cols-4";
+  return "lg:grid-cols-5";
+}
+
+export function CoreValuesSection({
+  content,
+}: {
+  content: LeadershipValuesContent;
+}) {
+  const values = content;
 
   return (
     <section className="py-16 lg:py-24 bg-navy relative overflow-hidden">
@@ -41,14 +54,19 @@ export function CoreValuesSection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-0">
+        <div
+          className={cn(
+            "grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-0",
+            valuesGridClass(values.items.length)
+          )}
+        >
           {values.items.map((item, index) => {
-            const Icon = iconMap[item.icon];
+            const Icon = iconMap[item.icon as keyof typeof iconMap] ?? Award;
             const isLast = index === values.items.length - 1;
 
             return (
               <div
-                key={item.title}
+                key={item.id}
                 className={`text-center px-4 ${
                   !isLast ? "lg:border-r lg:border-white/10" : ""
                 }`}

@@ -1,16 +1,14 @@
 import { PageHero } from "@/components/shared/PageHero";
-import { aboutPageContent } from "@/lib/content";
+import type { AboutHeroContent } from "@/lib/about-content";
 
-export function AboutHeroSection() {
-  const { hero } = aboutPageContent;
-
+export function AboutHeroSection({ content }: { content: AboutHeroContent }) {
   return (
     <PageHero
-      tag={hero.tag}
-      title={hero.title}
-      description={hero.description}
-      image={hero.image}
-      imageAlt={hero.imageAlt}
+      tag={content.tag}
+      title={content.title}
+      description={content.description}
+      image={content.image}
+      imageAlt={content.imageAlt}
     />
   );
 }

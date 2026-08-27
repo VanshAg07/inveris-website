@@ -1,4 +1,6 @@
-import { Check, Diamond, Eye, Target, TrendingUp } from "lucide-react";
+import { Check, Diamond, TrendingUp } from "lucide-react";
+import { GoGoal } from "react-icons/go";
+import { PiEyeLight } from "react-icons/pi";
 import { Card } from "@/components/ui/Card";
 import { IconCircle } from "@/components/ui/IconCircle";
 import { SectionTag } from "@/components/ui/SectionTag";
@@ -9,17 +11,17 @@ type CardIcon = "target" | "eye";
 interface MissionVisionCardProps {
   tag: string;
   title: string;
-  icon: CardIcon;
+  icon: string;
   items: string[];
   footer:
-    | { icon: "diamond"; prefix: string; highlight: string }
-    | { icon: "chart"; text: string };
+    | { icon: string; prefix: string; highlight: string }
+    | { icon: string; text: string };
   className?: string;
 }
 
 const cardIconMap = {
-  target: Target,
-  eye: Eye,
+  target: GoGoal,
+  eye: PiEyeLight,
 };
 
 const footerIconMap = {
@@ -35,13 +37,13 @@ export function MissionVisionCard({
   footer,
   className,
 }: MissionVisionCardProps) {
-  const CardIcon = cardIconMap[icon];
-  const FooterIcon = footerIconMap[footer.icon];
+  const CardIcon = cardIconMap[icon as CardIcon] ?? cardIconMap.target;
+  const FooterIcon = footerIconMap[footer.icon as keyof typeof footerIconMap] ?? footerIconMap.diamond;
 
   return (
     <Card className={cn("p-6 lg:p-8 flex flex-col h-full border-0", className)}>
-      <IconCircle variant="navy" size="lg" className="mb-6">
-        <CardIcon size={24} strokeWidth={1.5} />
+      <IconCircle variant="navy" size="md" className="mb-6">
+        <CardIcon size={36} />
       </IconCircle>
 
       <SectionTag withLine className="mb-4">

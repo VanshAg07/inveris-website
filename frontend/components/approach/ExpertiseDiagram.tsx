@@ -9,17 +9,17 @@ import { cn } from "@/lib/cn";
 
 type NodeIcon = "users" | "finance" | "compliance" | "risk" | "strategy";
 type NodePosition = "top" | "top-right" | "bottom-right" | "bottom-left" | "top-left";
-type NodeAlign = "left" | "right";
 
 interface DiagramNode {
+  id?: string;
   label: string;
   description: string;
-  icon: NodeIcon;
-  position: NodePosition;
-  align: NodeAlign;
+  icon: string;
+  position: string;
+  align: string;
 }
 
-const iconMap = {
+const iconMap: Record<NodeIcon, typeof Users> = {
   users: Users,
   finance: PieChart,
   compliance: FileCheck,
@@ -27,12 +27,13 @@ const iconMap = {
   strategy: Target,
 };
 
-const positionStyles: Record<NodePosition, string> = {
-  top: "top-[2%] left-1/2 -translate-x-1/2",
-  "top-right": "top-[18%] right-[2%]",
-  "bottom-right": "bottom-[18%] right-[2%]",
-  "bottom-left": "bottom-[18%] left-[2%]",
-  "top-left": "top-[18%] left-[2%]",
+/** Exact points on the dashed circle (radius 32.5% from center) */
+const nodeCoords: Record<NodePosition, { top: string; left: string }> = {
+  top: { top: "17.5%", left: "50%" },
+  "top-right": { top: "40%", left: "80.9%" },
+  "bottom-right": { top: "76.3%", left: "69.1%" },
+  "bottom-left": { top: "76.3%", left: "30.9%" },
+  "top-left": { top: "40%", left: "19.1%" },
 };
 
 export function ExpertiseDiagram({ nodes }: { nodes: DiagramNode[] }) {
@@ -94,34 +95,48 @@ export function ExpertiseDiagram({ nodes }: { nodes: DiagramNode[] }) {
       </div>
 
       {nodes.map((node) => {
-        const Icon = iconMap[node.icon];
+        const Icon = iconMap[node.icon as NodeIcon] ?? Target;
+        const coords =
+          nodeCoords[node.position as NodePosition] ?? nodeCoords.top;
         const textOnLeft = node.align === "left";
 
         return (
           <div
-            key={node.label}
-            className={cn("absolute flex items-center gap-3", positionStyles[node.position])}
+            key={node.id ?? node.label}
+            className="absolute z-20"
+            style={{ top: coords.top, left: coords.left }}
           >
-            {textOnLeft && (
-              <div className="text-right max-w-[120px] hidden sm:block">
-                <p className="text-xs font-bold text-heading tracking-wide">{node.label}</p>
-                <p className="text-[10px] text-paragraph leading-snug">{node.description}</p>
+            <div className="relative -translate-x-1/2 -translate-y-1/2">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white shadow-sm">
+                <Icon size={20} className="text-navy" strokeWidth={1.5} />
               </div>
-            )}
 
-            <div className="w-12 h-12 rounded-full bg-white border border-border flex items-center justify-center shrink-0 shadow-sm">
-              <Icon size={20} className="text-navy" strokeWidth={1.5} />
-            </div>
-
-            {!textOnLeft && (
-              <div className="text-left max-w-[120px] hidden sm:block">
-                <p className="text-xs font-bold text-heading tracking-wide">{node.label}</p>
-                <p className="text-[10px] text-paragraph leading-snug">{node.description}</p>
+              <div
+                className={cn(
+                  "absolute top-1/2 hidden max-w-[120px] -translate-y-1/2 sm:block",
+                  textOnLeft
+                    ? "right-[calc(100%+0.75rem)] text-right"
+                    : "left-[calc(100%+0.75rem)] text-left"
+                )}
+              >
+                <p className="text-xs font-bold tracking-wide text-heading">
+                  {node.label}
+                </p>
+                <p className="text-[10px] leading-snug text-paragraph">
+                  {node.description}
+                </p>
               </div>
-            )}
 
-            <div className="sm:hidden text-left max-w-[100px]">
-              <p className="text-xs font-bold text-heading">{node.label}</p>
+              <div
+                className={cn(
+                  "absolute top-1/2 max-w-[100px] -translate-y-1/2 sm:hidden",
+                  textOnLeft
+                    ? "right-[calc(100%+0.5rem)] text-right"
+                    : "left-[calc(100%+0.5rem)] text-left"
+                )}
+              >
+                <p className="text-xs font-bold text-heading">{node.label}</p>
+              </div>
             </div>
           </div>
         );

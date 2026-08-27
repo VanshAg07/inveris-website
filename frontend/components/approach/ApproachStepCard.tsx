@@ -1,4 +1,4 @@
-import { ArrowRight, BarChart3, PenLine, Play, Search } from "lucide-react";
+import { BarChart3, PenLine, Play, Search } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 type StepIcon = "search" | "pen" | "play" | "chart";
@@ -7,12 +7,12 @@ interface ApproachStepCardProps {
   number: string;
   title: string;
   description: string;
-  icon: StepIcon;
+  icon: string;
   items: string[];
   className?: string;
 }
 
-const iconMap = {
+const iconMap: Record<StepIcon, typeof Search> = {
   search: Search,
   pen: PenLine,
   play: Play,
@@ -27,7 +27,7 @@ export function ApproachStepCard({
   items,
   className,
 }: ApproachStepCardProps) {
-  const Icon = iconMap[icon];
+  const Icon = iconMap[icon as StepIcon] ?? Search;
 
   return (
     <div className={cn("relative pt-8", className)}>
@@ -38,10 +38,7 @@ export function ApproachStepCard({
       </div>
 
       <div className="bg-navy-light/80 border border-white/10 rounded-xl p-6 pt-10 h-full">
-        <div className="flex items-center gap-1.5 mb-2">
-          <ArrowRight size={14} className="text-gold" />
-          <span className="text-sm font-bold text-gold">{number}</span>
-        </div>
+        <span className="block text-sm font-bold text-gold mb-2">{number}</span>
 
         <h3 className="text-lg font-bold text-heading-inverse mb-3">{title}</h3>
         <p className="text-sm text-paragraph-inverse leading-relaxed mb-4">

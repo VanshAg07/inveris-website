@@ -286,6 +286,7 @@ export const industriesPageContent = {
           "Optimize operations, strengthen supply chain performance, and build workforce capabilities that support sustainable manufacturing growth.",
         icon: "manufacturing" as const,
         href: "/contact",
+        image: "/images/about-building.jpg",
       },
       {
         title: "Retail & E-commerce",
@@ -293,6 +294,7 @@ export const industriesPageContent = {
           "Scale operations across digital and physical channels with integrated support for talent, finance, compliance, and business strategy.",
         icon: "retail" as const,
         href: "/contact",
+        image: "/images/service-recruitment.jpg",
       },
       {
         title: "Healthcare",
@@ -300,6 +302,7 @@ export const industriesPageContent = {
           "Navigate complex regulatory requirements, strengthen internal controls, and build high-performing teams in patient-focused environments.",
         icon: "healthcare" as const,
         href: "/contact",
+        image: "/images/about-3.jpg",
       },
       {
         title: "Technology",
@@ -307,6 +310,7 @@ export const industriesPageContent = {
           "Support fast-growing tech companies with strategic consulting, specialized recruitment, financial governance, and risk management.",
         icon: "technology" as const,
         href: "/contact",
+        image: "/images/about-4.jpg",
       },
       {
         title: "Banking & Financial Services",
@@ -314,6 +318,7 @@ export const industriesPageContent = {
           "Strengthen regulatory compliance, internal audit, and operational resilience in an evolving financial services landscape.",
         icon: "banking" as const,
         href: "/contact",
+        image: "/images/service-compliance.jpg",
       },
       {
         title: "Education",
@@ -321,6 +326,7 @@ export const industriesPageContent = {
           "Help educational institutions improve workforce planning, operational efficiency, compliance, and governance frameworks.",
         icon: "education" as const,
         href: "/contact",
+        image: "/images/about-1.jpg",
       },
       {
         title: "Real Estate & Construction",
@@ -328,6 +334,7 @@ export const industriesPageContent = {
           "Manage project complexity, financial controls, regulatory compliance, and talent needs across real estate and construction.",
         icon: "realEstate" as const,
         href: "/contact",
+        image: "/images/service-consulting.jpg",
       },
       {
         title: "Travel & Hospitality",
@@ -335,6 +342,7 @@ export const industriesPageContent = {
           "Optimize operations, manage seasonal workforce needs, and strengthen financial and compliance practices in hospitality.",
         icon: "travel" as const,
         href: "/contact",
+        image: "/images/cta.jpg",
       },
     ],
   },
@@ -377,7 +385,6 @@ export const industriesPageContent = {
     description:
       "Let's work together to address your industry's unique challenges with integrated expertise and accountable partnership.",
     cta: { label: "Start a Conversation", href: "/contact" },
-    phone: "+91 00000 00000",
   },
 };
 
