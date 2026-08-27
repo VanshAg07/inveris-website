@@ -1,6 +1,7 @@
 export const siteConfig = {
-  name: "INVERIS SOLUTIONS LLC",
+  name: "INVERIS SOLUTIONS LLP",
   shortName: "INVERIS",
+  url: "https://inverissolutions.com",
   tagline: "One Partner. Connected Expertise.",
   description:
     "Integrated business solutions across strategy, operations, finance, compliance, and talent — one accountable partner for your growth.",
@@ -17,7 +18,7 @@ export const navLinks = [
 
 export const heroContent = {
   tag: "ONE PARTNER. CONNECTED EXPERTISE.",
-  title: "Your Business Doesn't Have Separate Problems. So Why Do Your Advisors?",
+  title: "Your Business Has One Big Picture. Why Get Advice In Pieces?",
   description:
     "Most businesses work with disconnected advisors — one for strategy, another for finance, another for compliance. We bring integrated expertise across consulting, recruitment, compliance, and audit under one accountable partner.",
   primaryCta: { label: "Discover How We Help", href: "/about" },
@@ -62,7 +63,7 @@ export const aboutContent = {
   tag: "ABOUT INVERIS",
   title: "One Partner. Integrated Business Solutions.",
   description:
-    "Inveris Solutions LLC helps businesses simplify complexity by bringing consulting, recruitment, compliance, and audit together under one roof. Instead of juggling multiple vendors, you get connected expertise and one accountable partner focused on practical results.",
+    "Inveris Solutions LLP helps businesses simplify complexity by bringing consulting, recruitment, compliance, and audit together under one roof. Instead of juggling multiple vendors, you get connected expertise and one accountable partner focused on practical results.",
   cta: { label: "Learn More About Us", href: "/about" },
   features: [
     {
@@ -579,16 +580,16 @@ export const leadershipPageContent = {
     title: "The People Behind Inveris",
     members: [
       {
-        name: "Name Surname",
-        role: "Co-Founder & Managing Partner",
-        bio: "Strategy and management consulting professional with 15+ years of experience advising businesses across growth, transformation, and operational excellence.",
+        name: "KRITI PAREEK",
+        role: "Founding Partner",
+        bio: "Kriti Pareek brings a finance-led and advisory perspective to business transformation, with experience across finance transformation, risk advisory, business consulting, compliance management, and strategic advisory. Her work focuses on helping businesses bring greater structure to the way they make financial and operational decisions. From strengthening financial frameworks and improving processes to navigating compliance and building scalable operating practices, she works closely with leadership teams to bring greater clarity and discipline to business decisions. At Inveris, Kriti leads Strategic Advisory, Management Consulting, Compliance & Financial Services, with a particular focus on helping startups and MSMEs build stronger financial and operational foundations.",
         image: "/images/leader-1.jpg",
         linkedin: "https://linkedin.com",
       },
       {
-        name: "Name Surname",
-        role: "Co-Founder & Partner",
-        bio: "Finance and compliance expert with 12+ years of experience in financial advisory, regulatory compliance, and risk management.",
+        name: "TAARUN SHARMAA",
+        role: "Founding Partner",
+        bio: "Taarun Sharmaa brings an entrepreneur's perspective and an execution-focused approach shaped by experience across logistics, cross-border trade, warehousing, and multi-vertical business operations. His experience gives him a practical understanding of what it takes to move a business from opportunity to execution—from identifying growth opportunities and building strategic relationships to improving operational efficiency and entering new markets. At Inveris, Taarun drives Business Growth, Operational Strategy, Client Partnerships, and Expansion Initiatives, working with organizations to translate growth opportunities into structured and actionable business plans.",
         image: "/images/leader-2.jpg",
         linkedin: "https://linkedin.com",
       },
@@ -806,7 +807,7 @@ export const footerContent = {
       { label: "YouTube", href: "https://youtube.com", icon: "youtube" as const },
     ],
   },
-  copyright: `© ${new Date().getFullYear()} Inveris Solutions LLC. All rights reserved.`,
+  copyright: `© ${new Date().getFullYear()} Inveris Solutions LLP. All rights reserved.`,
 };
 
 export const aboutPageContent = {
