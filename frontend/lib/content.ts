@@ -584,7 +584,7 @@ export const leadershipPageContent = {
         role: "Founding Partner",
         bio: "Kriti Pareek brings a finance-led and advisory perspective to business transformation, with experience across finance transformation, risk advisory, business consulting, compliance management, and strategic advisory. Her work focuses on helping businesses bring greater structure to the way they make financial and operational decisions. From strengthening financial frameworks and improving processes to navigating compliance and building scalable operating practices, she works closely with leadership teams to bring greater clarity and discipline to business decisions. At Inveris, Kriti leads Strategic Advisory, Management Consulting, Compliance & Financial Services, with a particular focus on helping startups and MSMEs build stronger financial and operational foundations.",
         image: "/images/leader-1.jpg",
-        linkedin: "https://linkedin.com",
+        linkedin: "https://www.linkedin.com/in/kritti-pareek-308099144",
       },
       {
         name: "TAARUN SHARMAA",
@@ -639,6 +639,19 @@ export const leadershipPageContent = {
   },
 };
 
+export const companyContact = {
+  company: "Inveris Solutions LLP",
+  location:
+    "Bestech Park view Grand spa, Aster 1801, Sector: 81, Gurugram, Haryana  122004, India",
+  mobile: "+91 99695 34628",
+  mobileHref: "tel:+919969534628",
+  email: "kriti.pareek@inverissolutions.com",
+  directionsUrl:
+    "https://www.google.com/maps/search/?api=1&query=Bestech+Park+View+Grand+Spa,+Sector+81,+Gurugram,+122004",
+  mapEmbedUrl:
+    "https://maps.google.com/maps?q=Bestech+Park+View+Grand+Spa,+Sector+81,+Gurugram,+122004&t=&z=15&ie=UTF8&iwloc=&output=embed",
+};
+
 export const contactPageContent = {
   hero: {
     tag: "CONTACT US",
@@ -683,20 +696,19 @@ export const contactPageContent = {
     items: [
       {
         title: "Email Us",
-        value: "hello@inverissolutions.com",
-        href: "mailto:hello@inverissolutions.com",
+        value: companyContact.email,
+        href: `mailto:${companyContact.email}`,
         icon: "mail" as const,
       },
       {
         title: "Call Us",
-        value: "+91 98765 43210",
-        href: "tel:+919876543210",
+        value: companyContact.mobile,
+        href: companyContact.mobileHref,
         icon: "phone" as const,
       },
       {
         title: "Our Office",
-        value:
-          "Inveris Solutions LLP, 123 Business Park, Sector 62, Noida, Uttar Pradesh – 201309, India",
+        value: `${companyContact.company}, ${companyContact.location}`,
         icon: "map" as const,
       },
       {
@@ -709,12 +721,10 @@ export const contactPageContent = {
   office: {
     title: "Our Office",
     subtitle: "We'd love to meet you in person.",
-    company: "Inveris Solutions LLP",
-    address: "123 Business Park, Sector 62, Noida, Uttar Pradesh – 201309, India",
-    directionsUrl:
-      "https://www.google.com/maps/search/?api=1&query=Noida+Sector+62,+Uttar+Pradesh,+India",
-    mapEmbedUrl:
-      "https://maps.google.com/maps?q=Sector+62,+Noida,+Uttar+Pradesh+201309&t=&z=14&ie=UTF8&iwloc=&output=embed",
+    company: companyContact.company,
+    address: companyContact.location,
+    directionsUrl: companyContact.directionsUrl,
+    mapEmbedUrl: companyContact.mapEmbedUrl,
   },
   faq: {
     title: "Frequently asked questions",
@@ -796,14 +806,13 @@ export const footerContent = {
   ],
   contact: {
     title: "Contact",
-    location:
-      "Inveris Solutions LLP, 123 Business Park, Sector 62, Noida, Uttar Pradesh – 201309, India",
-    mobile: "+91 98765 43210",
-    mobileHref: "tel:+919876543210",
-    email: "hello@inverissolutions.com",
+    location: companyContact.location,
+    mobile: companyContact.mobile,
+    mobileHref: companyContact.mobileHref,
+    email: companyContact.email,
     social: [
       { label: "Instagram", href: "https://instagram.com", icon: "instagram" as const },
-      { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" as const },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/inveris-solutions-llp/ ", icon: "linkedin" as const },
       { label: "YouTube", href: "https://youtube.com", icon: "youtube" as const },
     ],
   },
