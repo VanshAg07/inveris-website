@@ -7,13 +7,54 @@ const uploadRouter = require("./routes/upload");
 
 const app = express();
 
+function parseOrigins(value) {
+  if (!value) return [];
+  return value
+    .split(",")
+    .map((item) => item.trim().replace(/^['"]|['"]$/g, "").replace(/\/$/, ""))
+    .filter(Boolean);
+}
+
+function isAllowedOrigin(origin) {
+  if (!origin) return true;
+
+  const allowed = new Set([
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://www.inverissolutions.com",
+    "https://inverissolutions.com",
+    ...parseOrigins(process.env.CLIENT_URL),
+  ]);
+
+  if (allowed.has(origin)) return true;
+
+  try {
+    const { hostname, protocol } = new URL(origin);
+    if (protocol !== "http:" && protocol !== "https:") return false;
+    if (hostname === "localhost" || hostname === "127.0.0.1") return true;
+    if (hostname.endsWith(".vercel.app")) return true;
+    if (hostname === "inverissolutions.com" || hostname.endsWith(".inverissolutions.com")) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+
+  return false;
+}
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL
-      ? process.env.CLIENT_URL.split(",").map((origin) => origin.trim())
-      : ["http://localhost:3000", "http://localhost:3001"],
+    origin(origin, callback) {
+      if (isAllowedOrigin(origin)) {
+        return callback(null, true);
+      }
+      console.warn(`[CORS] blocked origin: ${origin}`);
+      return callback(null, false);
+    },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 204,
   })
 );
 
