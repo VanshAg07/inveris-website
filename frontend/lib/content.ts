@@ -347,6 +347,7 @@ export const industriesPageContent = {
     ],
   },
   valueBar: {
+    title: "Why Partner With Inveris?",
     items: [
       {
         title: "Deep Industry Understanding",
@@ -693,7 +694,6 @@ export const contactPageContent = {
   },
   form: {
     title: "Send Us a Message",
-    privacyNote: "We respect your privacy. Your details will never be shared.",
     enquiryTypes: [
       "General Inquiry",
       "Management Consulting",
@@ -725,7 +725,7 @@ export const contactPageContent = {
       },
       {
         title: "Business Hours",
-        value: "Monday – Friday, 9:30 AM – 6:30 PM IST",
+        value: "Monday – Friday, 9:30 AM – 6:30 PM IST\nSat–Sun closed.",
         icon: "clock" as const,
       },
     ],
@@ -741,7 +741,12 @@ export const contactPageContent = {
   faq: {
     title: "Frequently asked questions",
     stillHaveQuestions: "Still have questions?",
-    cta: { label: "Contact Us", href: "/contact" },
+    ctaLabel: "Get in Touch",
+    avatars: [
+      "https://i.pravatar.cc/120?img=12",
+      "https://i.pravatar.cc/120?img=25",
+      "https://i.pravatar.cc/120?img=47",
+    ],
     items: [
       {
         question: "What services does Inveris provide?",
@@ -851,12 +856,7 @@ export const aboutPageContent = {
     },
   },
   missionVision: {
-    intro: {
-      paragraphs: [
-        "We work alongside businesses to understand their requirements, identify gaps, and bring the right expertise together to address them. From building teams and improving processes to managing compliance, strengthening financial practices, and assessing operational risks, our capabilities are designed to support businesses through different stages of growth.",
-        "Rather than adding another layer of vendor management, we aim to become a single, accountable partner across the areas that matter to your business.",
-      ],
-    },
+    backgroundImage: "/images/about-building.jpg",
     mission: {
       tag: "OUR MISSION",
       title: "Simplifying Business Support. Strengthening Business Growth.",

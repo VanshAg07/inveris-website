@@ -41,7 +41,7 @@ export function MissionVisionCard({
   const FooterIcon = footerIconMap[footer.icon as keyof typeof footerIconMap] ?? footerIconMap.diamond;
 
   return (
-    <Card className={cn("p-6 lg:p-8 flex flex-col h-full border-0", className)}>
+    <Card className={cn("p-6 lg:p-8 flex flex-col h-full", className)}>
       <IconCircle variant="navy" size="md" className="mb-6">
         <CardIcon size={36} />
       </IconCircle>
@@ -65,7 +65,7 @@ export function MissionVisionCard({
         ))}
       </ul>
 
-      <div className="bg-surface-alt rounded-lg p-4 flex items-start gap-3">
+      <div className="rounded-lg border border-white/40 bg-white/35 p-4 flex items-start gap-3 backdrop-blur-md">
         <FooterIcon size={20} className="text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
         {"prefix" in footer ? (
           <p className="text-sm text-heading leading-relaxed">

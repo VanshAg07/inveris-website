@@ -1,9 +1,15 @@
+"use client";
+
+import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionTag } from "@/components/ui/SectionTag";
 import { ServiceLineCard } from "@/components/services/ServiceLineCard";
+import { ServiceEnquiryModal } from "@/components/services/ServiceEnquiryModal";
 import type { ServicesOfferContent } from "@/lib/services-content";
 
 export function ServicesOfferSection({ content }: { content: ServicesOfferContent }) {
+  const [selectedService, setSelectedService] = useState<string | null>(null);
+
   return (
     <section className="py-16 lg:py-24 bg-surface">
       <Container>
@@ -26,11 +32,15 @@ export function ServicesOfferSection({ content }: { content: ServicesOfferConten
               items={service.items}
               image={service.image}
               icon={service.icon}
-              imagePosition={service.imagePosition}
+              onEnquire={setSelectedService}
             />
           ))}
         </div>
       </Container>
+      <ServiceEnquiryModal
+        service={selectedService}
+        onClose={() => setSelectedService(null)}
+      />
     </section>
   );
 }

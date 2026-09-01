@@ -192,53 +192,14 @@ export function AboutEditor({ initialContent }: { initialContent: AboutPageConte
         />
       </AdminSection>
 
-      <AdminSection title="Mission & vision intro">
-        {content.missionVision.intro.paragraphs.map((paragraph, index) => (
-          <div key={`intro-${index}`} className="flex gap-2">
-            <textarea
-              rows={3}
-              className="min-h-20 w-full resize-y rounded-md border border-border px-3 py-2 text-sm"
-              value={paragraph}
-              onChange={(e) => {
-                const paragraphs = [...content.missionVision.intro.paragraphs];
-                paragraphs[index] = e.target.value;
-                setContent((prev) => ({
-                  ...prev,
-                  missionVision: {
-                    ...prev.missionVision,
-                    intro: { paragraphs },
-                  },
-                }));
-              }}
-            />
-            <DeleteButton
-              onClick={() =>
-                setContent((prev) => ({
-                  ...prev,
-                  missionVision: {
-                    ...prev.missionVision,
-                    intro: {
-                      paragraphs: prev.missionVision.intro.paragraphs.filter(
-                        (_, i) => i !== index
-                      ),
-                    },
-                  },
-                }))
-              }
-            />
-          </div>
-        ))}
-        <AddButton
-          label="Add intro paragraph"
-          onClick={() =>
+      <AdminSection title="Mission & vision background">
+        <ImageField
+          label="Background image"
+          value={content.missionVision.backgroundImage}
+          onChange={(v) =>
             setContent((prev) => ({
               ...prev,
-              missionVision: {
-                ...prev.missionVision,
-                intro: {
-                  paragraphs: [...prev.missionVision.intro.paragraphs, ""],
-                },
-              },
+              missionVision: { ...prev.missionVision, backgroundImage: v },
             }))
           }
         />

@@ -6,6 +6,7 @@ import {
   Users,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/cn";
 import type { IndustriesValueBarContent } from "@/lib/industries-content";
 
 const iconMap = {
@@ -16,41 +17,64 @@ const iconMap = {
   handshake: Handshake,
 };
 
+function itemColSpan(index: number, total: number) {
+  if (total <= 3) return "lg:col-span-1";
+  if (total === 4) return "lg:col-span-3";
+  if (total === 5) return index < 3 ? "lg:col-span-2" : "lg:col-span-3";
+  if (total === 6) return "lg:col-span-2";
+  return "lg:col-span-1";
+}
+
+function gridColsClass(total: number) {
+  if (total <= 2) return "lg:grid-cols-2";
+  if (total === 3) return "lg:grid-cols-3";
+  if (total === 4) return "lg:grid-cols-6";
+  if (total === 5) return "lg:grid-cols-6";
+  if (total === 6) return "lg:grid-cols-6";
+  return "lg:grid-cols-3";
+}
+
 export function IndustryValueBar({
   content,
 }: {
   content: IndustriesValueBarContent;
 }) {
+  const { items } = content;
+  const title = content.title || "Why Partner With Inveris?";
+
   return (
-    <section className="py-12 lg:py-14 bg-surface-muted border-y border-border">
+    <section className="py-16 lg:py-24 bg-surface">
       <Container>
+        <h2 className="mb-12 text-center font-serif text-2xl font-bold uppercase tracking-wide text-heading md:text-3xl lg:mb-16 lg:text-4xl">
+          {title}
+        </h2>
+
         <div
-          className={`grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-0 ${
-            content.items.length >= 5
-              ? "lg:grid-cols-5"
-              : content.items.length === 4
-                ? "lg:grid-cols-4"
-                : content.items.length === 3
-                  ? "lg:grid-cols-3"
-                  : "lg:grid-cols-2"
-          }`}
+          className={cn(
+            "grid grid-cols-1 border-t border-l border-border/60 sm:grid-cols-2",
+            gridColsClass(items.length)
+          )}
         >
-          {content.items.map((item, index) => {
+          {items.map((item, index) => {
             const Icon = iconMap[item.icon as keyof typeof iconMap] ?? Users;
-            const isLast = index === content.items.length - 1;
 
             return (
               <div
                 key={item.id}
-                className={`text-center px-4 ${
-                  !isLast ? "lg:border-r lg:border-border" : ""
-                }`}
+                className={cn(
+                  "flex flex-col items-center border-r border-b border-border/60 px-6 py-10 text-center sm:px-8 lg:py-12",
+                  itemColSpan(index, items.length)
+                )}
               >
-                <div className="flex justify-center mb-3">
-                  <Icon size={26} className="text-gold" strokeWidth={1.5} />
-                </div>
-                <h3 className="font-bold text-heading text-sm mb-2">{item.title}</h3>
-                <p className="text-xs text-paragraph leading-relaxed">
+                <Icon
+                  size={32}
+                  className="mb-5 text-gold"
+                  strokeWidth={1.25}
+                />
+                <h3 className="mb-3 text-xs font-bold uppercase tracking-[0.12em] text-heading md:text-sm">
+                  {item.title}
+                </h3>
+                <p className="max-w-xs text-sm leading-relaxed text-paragraph">
                   {item.description}
                 </p>
               </div>

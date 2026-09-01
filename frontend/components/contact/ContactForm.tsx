@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowRight, Lock } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { contactPageContent } from "@/lib/content";
+import { cn } from "@/lib/cn";
+import type { ContactFormContent } from "@/lib/contact-content";
 
 interface FormData {
   name: string;
@@ -18,9 +19,13 @@ interface FormData {
 const inputClass =
   "w-full px-4 py-3 rounded border border-border bg-white text-heading text-sm placeholder:text-paragraph-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold";
 
-export function ContactForm() {
-  const { form } = contactPageContent;
-
+export function ContactForm({
+  form,
+  className,
+}: {
+  form: ContactFormContent;
+  className?: string;
+}) {
   const initialForm: FormData = {
     name: "",
     email: "",
@@ -35,6 +40,13 @@ export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errors, setErrors] = useState<string[]>([]);
   const [successMessage, setSuccessMessage] = useState("");
+  const successTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (successTimer.current) clearTimeout(successTimer.current);
+    };
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -67,6 +79,11 @@ export function ContactForm() {
       setSuccessMessage(data.message);
       setFormState(initialForm);
       setStatus("success");
+      if (successTimer.current) clearTimeout(successTimer.current);
+      successTimer.current = setTimeout(() => {
+        setStatus("idle");
+        setSuccessMessage("");
+      }, 5000);
     } catch {
       setErrors(["Unable to reach the server. Please try again later."]);
       setStatus("error");
@@ -74,10 +91,10 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <form onSubmit={handleSubmit} className={cn("flex min-h-0 flex-1 flex-col gap-5", className)}>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-heading mb-1.5">
+          <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-heading">
             Full Name *
           </label>
           <input
@@ -92,7 +109,7 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-heading mb-1.5">
+          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-heading">
             Work Email *
           </label>
           <input
@@ -108,24 +125,9 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div>
-        <label htmlFor="company" className="block text-sm font-medium text-heading mb-1.5">
-          Company Name
-        </label>
-        <input
-          id="company"
-          name="company"
-          type="text"
-          value={formState.company}
-          onChange={handleChange}
-          className={inputClass}
-          placeholder="Your company"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-heading mb-1.5">
+          <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-heading">
             Phone Number
           </label>
           <input
@@ -139,7 +141,7 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="enquiryType" className="block text-sm font-medium text-heading mb-1.5">
+          <label htmlFor="enquiryType" className="mb-1.5 block text-sm font-medium text-heading">
             Enquiry Type
           </label>
           <select
@@ -159,60 +161,70 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-heading mb-1.5">
-          Subject
-        </label>
-        <input
-          id="subject"
-          name="subject"
-          type="text"
-          value={formState.subject}
-          onChange={handleChange}
-          className={inputClass}
-          placeholder="What is this regarding?"
-        />
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="company" className="mb-1.5 block text-sm font-medium text-heading">
+            Company Name
+          </label>
+          <input
+            id="company"
+            name="company"
+            type="text"
+            value={formState.company}
+            onChange={handleChange}
+            className={inputClass}
+            placeholder="Your company"
+          />
+        </div>
+        <div>
+          <label htmlFor="subject" className="mb-1.5 block text-sm font-medium text-heading">
+            Subject
+          </label>
+          <input
+            id="subject"
+            name="subject"
+            type="text"
+            value={formState.subject}
+            onChange={handleChange}
+            className={inputClass}
+            placeholder="What is this regarding?"
+          />
+        </div>
       </div>
 
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-heading mb-1.5">
+      <div className="flex min-h-0 flex-1 flex-col">
+        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-heading">
           How can we help you?
         </label>
         <textarea
           id="message"
           name="message"
           required
-          rows={5}
           value={formState.message}
           onChange={handleChange}
-          className={`${inputClass} resize-none`}
+          className={`${inputClass} min-h-[120px] flex-1 resize-none lg:min-h-0`}
           placeholder="Tell us about your business needs..."
         />
       </div>
 
       {status === "success" && (
-        <div className="p-4 rounded bg-green-50 border border-green-200 text-green-800 text-sm">
+        <div className="rounded border border-green-200 bg-green-50 p-4 text-sm text-green-800">
           {successMessage}
         </div>
       )}
 
       {status === "error" && errors.length > 0 && (
-        <div className="p-4 rounded bg-red-50 border border-red-200 text-red-800 text-sm space-y-1">
+        <div className="space-y-1 rounded border border-red-200 bg-red-50 p-4 text-sm text-red-800">
           {errors.map((err) => (
             <p key={err}>{err}</p>
           ))}
         </div>
       )}
 
-      <Button type="submit" variant="primary" disabled={status === "loading"}>
+      <Button type="submit" variant="primary" disabled={status === "loading"} className="shrink-0">
         {status === "loading" ? "Sending..." : "Send Message"}
         <ArrowRight size={18} />
       </Button>
-
-      <p className="flex items-center gap-2 text-xs text-paragraph">
-        <Lock size={14} className="shrink-0" />
-        {form.privacyNote}
-      </p>
     </form>
   );
 }

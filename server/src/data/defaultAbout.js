@@ -26,12 +26,7 @@ const defaultAbout = {
     },
   },
   missionVision: {
-    intro: {
-      paragraphs: [
-        "We work alongside businesses to understand their requirements, identify gaps, and bring the right expertise together to address them. From building teams and improving processes to managing compliance, strengthening financial practices, and assessing operational risks, our capabilities are designed to support businesses through different stages of growth.",
-        "Rather than adding another layer of vendor management, we aim to become a single, accountable partner across the areas that matter to your business.",
-      ],
-    },
+    backgroundImage: "/images/about-building.jpg",
     mission: {
       tag: "OUR MISSION",
       title: "Simplifying Business Support. Strengthening Business Growth.",

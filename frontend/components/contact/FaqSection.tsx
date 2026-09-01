@@ -2,19 +2,30 @@
 
 import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
-import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { contactPageContent } from "@/lib/content";
+import { CmsImage } from "@/components/ui/CmsImage";
+import type { ContactFaqContent } from "@/lib/contact-content";
 import { cn } from "@/lib/cn";
 
-export function FaqSection() {
-  const { faq } = contactPageContent;
+const defaultAvatars = [
+  "https://i.pravatar.cc/120?img=12",
+  "https://i.pravatar.cc/120?img=25",
+  "https://i.pravatar.cc/120?img=47",
+];
+
+export function FaqSection({ content }: { content: ContactFaqContent }) {
+  const faq = content;
   const [openIndex, setOpenIndex] = useState(0);
+  const avatars =
+    faq.avatars?.filter(Boolean).length >= 3
+      ? faq.avatars.slice(0, 3)
+      : defaultAvatars;
 
   return (
-    <section className="py-16 lg:py-24 bg-surface">
+    <section className="bg-surface py-16 lg:py-24">
       <Container className="max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-heading text-center mb-10 lg:mb-12">
+        <h2 className="mb-10 text-center text-3xl font-bold text-heading md:text-4xl lg:mb-12">
           {faq.title}
         </h2>
 
@@ -23,19 +34,19 @@ export function FaqSection() {
             const isOpen = openIndex === index;
 
             return (
-              <div key={item.question}>
+              <div key={item.id}>
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                  className="w-full flex items-center justify-between gap-4 py-5 text-left"
+                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-semibold text-heading text-sm md:text-base">
+                  <span className="text-sm font-semibold text-heading md:text-base">
                     {item.question}
                   </span>
                   <span
                     className={cn(
-                      "w-8 h-8 rounded-full border border-border flex items-center justify-center shrink-0 text-paragraph",
+                      "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-paragraph",
                       isOpen && "bg-surface-muted"
                     )}
                   >
@@ -43,34 +54,37 @@ export function FaqSection() {
                   </span>
                 </button>
 
-                {isOpen && (
-                  <p className="pb-5 text-sm text-paragraph leading-relaxed -mt-1">
+                {isOpen ? (
+                  <p className="-mt-1 pb-5 text-sm leading-relaxed text-paragraph">
                     {item.answer}
                   </p>
-                )}
+                ) : null}
               </div>
             );
           })}
         </div>
 
-        <div className="text-center mt-12 space-y-4">
-          <div className="flex justify-center -space-x-2">
-            {[1, 2, 3].map((i) => (
+        <div className="mt-12 space-y-5 text-center">
+          <div className="flex justify-center -space-x-3">
+            {avatars.map((src, index) => (
               <div
-                key={i}
-                className="w-10 h-10 rounded-full bg-surface-muted border-2 border-white flex items-center justify-center text-xs font-bold text-paragraph"
+                key={`${src}-${index}`}
+                className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-white shadow-sm"
               >
-                {String.fromCharCode(64 + i)}
+                <CmsImage
+                  src={src}
+                  alt=""
+                  fill
+                  className="object-cover object-top"
+                  sizes="48px"
+                />
               </div>
             ))}
           </div>
           <p className="font-bold text-heading">{faq.stillHaveQuestions}</p>
-          <Link
-            href={faq.cta.href}
-            className="inline-flex text-sm font-semibold text-gold hover:text-gold-dark transition-colors"
-          >
-            {faq.cta.label} →
-          </Link>
+          <Button variant="gold" href="#contact-form" className="inline-flex">
+            {faq.ctaLabel || "Get in Touch"}
+          </Button>
         </div>
       </Container>
     </section>

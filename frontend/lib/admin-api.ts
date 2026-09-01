@@ -1,5 +1,6 @@
 import type { AboutPageContent } from "@/lib/about-content";
 import type { ApproachPageContent } from "@/lib/approach-content";
+import type { ContactPageContent } from "@/lib/contact-content";
 import type { LeadershipPageContent } from "@/lib/leadership-content";
 import type { ServicesPageContent } from "@/lib/services-content";
 import type { IndustriesPageContent } from "@/lib/industries-content";
@@ -103,6 +104,14 @@ export async function saveLeadershipContent(content: LeadershipPageContent) {
   return data.content as LeadershipPageContent;
 }
 
+export async function saveContactContent(content: ContactPageContent) {
+  const data = await adminFetch("/api/content/contact", {
+    method: "PUT",
+    body: JSON.stringify(content),
+  });
+  return data.content as ContactPageContent;
+}
+
 export async function saveFooterContent(content: FooterContent) {
   const data = await adminFetch("/api/content/footer", {
     method: "PUT",
@@ -127,4 +136,59 @@ export async function deleteAdminImage(url: string) {
     method: "POST",
     body: JSON.stringify({ url }),
   });
+}
+
+export type ContactSubmission = {
+  id: string;
+  name: string;
+  email: string;
+  company: string;
+  phone: string;
+  enquiryType: string;
+  subject: string;
+  message: string;
+  read: boolean;
+  emailSent: boolean;
+  createdAt: string;
+};
+
+export async function fetchContactSubmissions() {
+  const data = await adminFetch("/api/contact/submissions");
+  return {
+    submissions: (data.submissions || []) as ContactSubmission[],
+    unread: Number(data.unread || 0),
+  };
+}
+
+export async function fetchContactUnreadCount() {
+  const data = await adminFetch("/api/contact/submissions/unread-count");
+  return Number(data.unread || 0);
+}
+
+export async function markContactSubmissionRead(id: string, read = true) {
+  const data = await adminFetch(`/api/contact/submissions/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ read }),
+  });
+  return data.submission as ContactSubmission;
+}
+
+export async function deleteContactSubmission(id: string) {
+  await adminFetch(`/api/contact/submissions/${id}`, { method: "DELETE" });
+}
+
+export type NewsletterSubscriber = {
+  id: string;
+  email: string;
+  emailSent: boolean;
+  createdAt: string;
+};
+
+export async function fetchNewsletterSubscribers() {
+  const data = await adminFetch("/api/newsletter/subscribers");
+  return (data.subscribers || []) as NewsletterSubscriber[];
+}
+
+export async function deleteNewsletterSubscriber(id: string) {
+  await adminFetch(`/api/newsletter/subscribers/${id}`, { method: "DELETE" });
 }

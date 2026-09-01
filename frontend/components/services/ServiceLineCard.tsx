@@ -1,8 +1,9 @@
+"use client";
+
 import { Check, Crown, Shield, ShieldCheck, Users } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { IconCircle } from "@/components/ui/IconCircle";
 import { CmsImage } from "@/components/ui/CmsImage";
-import { cn } from "@/lib/cn";
 
 type ServiceIcon = "consulting" | "recruitment" | "compliance" | "audit";
 
@@ -12,7 +13,7 @@ interface ServiceLineCardProps {
   items: string[];
   image: string;
   icon: string;
-  imagePosition?: "left" | "right";
+  onEnquire: (service: string) => void;
 }
 
 const iconMap = {
@@ -28,51 +29,49 @@ export function ServiceLineCard({
   items,
   image,
   icon,
-  imagePosition = "right",
+  onEnquire,
 }: ServiceLineCardProps) {
   const Icon = iconMap[icon as ServiceIcon] ?? Crown;
-  const imageFirst = imagePosition === "left";
 
   return (
-    <Card className="overflow-hidden border-0">
-      <div
-        className={cn(
-          "grid grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px]",
-          imageFirst && "lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr]"
-        )}
+    <Card className="overflow-hidden border-0 transition-all duration-300 hover:border-gold/40">
+      <button
+        type="button"
+        onClick={() => onEnquire(title)}
+        className="grid w-full cursor-pointer grid-cols-1 text-left lg:grid-cols-[minmax(280px,38%)_1fr]"
       >
-        {imageFirst && (
-          <div className="relative h-56 lg:h-auto min-h-[240px] order-1 lg:order-none">
-            <CmsImage
-              src={image}
-              alt={title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 320px"
-            />
-          </div>
-        )}
+        <div className="relative h-56 sm:h-64 lg:h-auto lg:min-h-[280px]">
+          <CmsImage
+            src={image}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 38vw"
+          />
+        </div>
 
-        <div className="p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
-          <div className="flex-1 space-y-4 min-w-0">
-            <div className="flex items-center gap-4">
-              <IconCircle variant="navy" size="md">
-                <Icon size={22} strokeWidth={1.5} />
-              </IconCircle>
-              <div>
-                <h3 className="text-xl font-bold text-heading">{title}</h3>
-                <span className="block h-0.5 w-10 bg-gold mt-2" aria-hidden="true" />
-              </div>
+        <div className="flex flex-col p-6 lg:p-8">
+          <div className="flex items-center gap-4">
+            <IconCircle variant="navy" size="md">
+              <Icon size={22} strokeWidth={1.5} />
+            </IconCircle>
+            <div>
+              <h3 className="text-xl md:text-2xl font-bold text-heading">{title}</h3>
+              <span className="mt-2 block h-0.5 w-10 bg-gold" aria-hidden="true" />
+              <p className="mt-2 text-xs font-semibold tracking-wide text-gold">
+                Click to enquire
+              </p>
             </div>
-            <p className="text-sm text-paragraph leading-relaxed">{description}</p>
           </div>
 
-          <div className="hidden lg:block w-px bg-border shrink-0" aria-hidden="true" />
+          <p className="mt-5 text-sm md:text-base text-paragraph leading-relaxed">
+            {description}
+          </p>
 
-          <ul className="space-y-3 lg:w-52 xl:w-56 shrink-0">
+          <ul className="mt-6 space-y-3">
             {items.map((item) => (
-              <li key={item} className="flex gap-2.5 text-sm text-paragraph">
-                <span className="mt-0.5 shrink-0 w-5 h-5 rounded-full border-2 border-gold flex items-center justify-center">
+              <li key={item} className="flex gap-2.5 text-sm text-paragraph md:text-base">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-gold">
                   <Check size={10} className="text-gold" strokeWidth={3} />
                 </span>
                 <span>{item}</span>
@@ -80,19 +79,7 @@ export function ServiceLineCard({
             ))}
           </ul>
         </div>
-
-        {!imageFirst && (
-          <div className="relative h-56 lg:h-auto min-h-[240px]">
-            <CmsImage
-              src={image}
-              alt={title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 320px"
-            />
-          </div>
-        )}
-      </div>
+      </button>
     </Card>
   );
 }

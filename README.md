@@ -51,6 +51,9 @@ Port 5000 is often used by AirPlay Receiver on macOS. The API defaults to **5001
 | `JWT_SECRET`            | —                         | JWT signing secret |
 | `MONGODB_URI`           | —                         | MongoDB Atlas connection string |
 | `IMAGEKIT_PRIVATE_KEY`  | —                         | ImageKit private API key |
+| `CONTACT_NOTIFY_EMAIL`  | `vanshagarwal0144@gmail.com` | Inbox for contact form emails |
+| `RESEND_API_KEY`        | —                         | Resend API key (`re_...`) |
+| `RESEND_FROM_EMAIL`     | `Inveris Website <onboarding@resend.dev>` | From address (use a verified domain in production) |
 
 **frontend/.env.local**
 
@@ -121,6 +124,9 @@ git push -u origin main
    | `JWT_SECRET` | a long random string |
    | `MONGODB_URI` | MongoDB Atlas connection string |
    | `IMAGEKIT_PRIVATE_KEY` | ImageKit private API key (`private_...`) |
+   | `CONTACT_NOTIFY_EMAIL` | `vanshagarwal0144@gmail.com` |
+   | `RESEND_API_KEY` | Resend API key (`re_...`) |
+   | `RESEND_FROM_EMAIL` | `Inveris Website <onboarding@resend.dev>` (verified domain in production) |
 
    > Render sets `PORT` automatically — do not override it.
 
@@ -172,7 +178,7 @@ git push -u origin main
 
 - [ ] Homepage loads on Vercel URL
 - [ ] All pages work (`/about`, `/services`, `/contact`, etc.)
-- [ ] Contact form submits successfully (check Render logs)
+- [ ] Contact form submits successfully (appears under Admin → Form responses and arrives by email)
 - [ ] No CORS errors in browser DevTools → Network tab
 
 ---
@@ -201,6 +207,7 @@ git push
 | Build fails on Render | Ensure **Root Directory** is `server` |
 | API fails to start | Set `MONGODB_URI` and allow Render's IPs (or `0.0.0.0/0`) in Atlas Network Access |
 | Image upload fails | Set `IMAGEKIT_PRIVATE_KEY` on Render |
+| Contact form saves but no email | Set `RESEND_API_KEY` (and a verified `RESEND_FROM_EMAIL` in production) |
 
 ---
 
@@ -217,6 +224,9 @@ git push
 | `JWT_SECRET`            | —                         | JWT signing secret |
 | `MONGODB_URI`           | —                         | MongoDB Atlas connection string |
 | `IMAGEKIT_PRIVATE_KEY`  | —                         | ImageKit private API key |
+| `CONTACT_NOTIFY_EMAIL`  | `vanshagarwal0144@gmail.com` | Inbox for contact form emails |
+| `RESEND_API_KEY`        | —                         | Resend API key (`re_...`) |
+| `RESEND_FROM_EMAIL`     | `Inveris Website <onboarding@resend.dev>` | From address (use a verified domain in production) |
 
 **frontend/.env.local**
 

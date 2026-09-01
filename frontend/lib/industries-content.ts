@@ -37,6 +37,7 @@ export type IndustriesValueItem = {
 };
 
 export type IndustriesValueBarContent = {
+  title: string;
   items: IndustriesValueItem[];
 };
 
@@ -71,6 +72,7 @@ export function getFallbackIndustriesContent(): IndustriesPageContent {
       ),
     },
     valueBar: {
+      title: industriesPageContent.valueBar.title,
       items: industriesPageContent.valueBar.items.map((item, index) => ({
         ...item,
         id: `value-${index + 1}`,

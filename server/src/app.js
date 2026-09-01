@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const contactRouter = require("./routes/contact");
+const newsletterRouter = require("./routes/newsletter");
 const authRouter = require("./routes/auth");
 const contentRouter = require("./routes/content");
 const uploadRouter = require("./routes/upload");
@@ -65,6 +66,7 @@ app.get("/health", (_req, res) => {
 });
 
 app.use("/api/contact", contactRouter);
+app.use("/api/newsletter", newsletterRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/content", contentRouter);
 app.use("/api/upload", uploadRouter);

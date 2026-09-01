@@ -42,9 +42,10 @@ export function ServicesSection({ content }: { content: HomeServicesContent }) {
         {content.services.length ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5">
             {content.services.map((service) => (
-              <article
+              <Link
                 key={service.id}
-                className="group relative flex flex-col rounded-xl border border-border/70 bg-surface transition-all duration-500 ease-out hover:-translate-y-2 hover:border-gold/40 hover:shadow-[var(--shadow-card-hover)]"
+                href="/services"
+                className="group relative flex cursor-pointer flex-col rounded-xl border border-border/70 bg-surface transition-all duration-500 ease-out hover:-translate-y-2 hover:border-gold/40 hover:shadow-[var(--shadow-card-hover)]"
                 style={{ boxShadow: "var(--shadow-card)" }}
               >
                 <div className="relative h-36 overflow-hidden rounded-t-xl bg-navy/10">
@@ -86,20 +87,17 @@ export function ServicesSection({ content }: { content: HomeServicesContent }) {
                   ) : null}
 
                   {service.linkLabel ? (
-                    <Link
-                      href="/services"
-                      className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-navy transition-colors duration-300 group-hover:text-gold"
-                    >
+                    <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-navy transition-colors duration-300 group-hover:text-gold">
                       {service.linkLabel}
                       <HomeIcon
                         name="arrowRight"
                         size={16}
                         className="transition-transform duration-300 group-hover:translate-x-1"
                       />
-                    </Link>
+                    </span>
                   ) : null}
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         ) : null}

@@ -80,6 +80,7 @@ const defaultIndustries = {
     ],
   },
   valueBar: {
+    title: "Why Partner With Inveris?",
     items: [
       {
         id: "value-1",

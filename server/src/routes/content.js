@@ -19,6 +19,11 @@ const {
   writeLeadership,
   resetLeadership,
 } = require("../store/leadershipStore");
+const {
+  readContact,
+  writeContact,
+  resetContact,
+} = require("../store/contactStore");
 const { cleanupRemovedImageKitUrls } = require("../lib/imagekitCleanup");
 
 const router = express.Router();
@@ -127,6 +132,23 @@ function isLeadershipContent(body) {
     body.values &&
     Array.isArray(body.values.items) &&
     body.cta
+  );
+}
+
+function isContactContent(body) {
+  return (
+    body &&
+    typeof body === "object" &&
+    body.hero &&
+    body.form &&
+    Array.isArray(body.form.enquiryTypes) &&
+    body.contactInfo &&
+    Array.isArray(body.contactInfo.emails) &&
+    Array.isArray(body.contactInfo.phones) &&
+    Array.isArray(body.contactInfo.addresses) &&
+    body.office &&
+    body.faq &&
+    Array.isArray(body.faq.items)
   );
 }
 
@@ -363,6 +385,47 @@ router.post("/leadership/reset", requireAuth, async (_req, res) => {
     return res
       .status(500)
       .json({ success: false, message: "Failed to reset leadership content" });
+  }
+});
+
+router.get("/contact", async (_req, res) => {
+  try {
+    return res.json({ success: true, content: await readContact() });
+  } catch (error) {
+    console.error("[Contact content read]", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to load contact content" });
+  }
+});
+
+router.put("/contact", requireAuth, async (req, res) => {
+  if (!isContactContent(req.body)) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid contact content payload" });
+  }
+
+  try {
+    const content = await saveContent(readContact, writeContact, req.body);
+    return res.json({ success: true, content });
+  } catch (error) {
+    console.error("[Contact content write]", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to save contact content" });
+  }
+});
+
+router.post("/contact/reset", requireAuth, async (_req, res) => {
+  try {
+    const content = await resetContent(readContact, resetContact);
+    return res.json({ success: true, content });
+  } catch (error) {
+    console.error("[Contact content reset]", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to reset contact content" });
   }
 });
 

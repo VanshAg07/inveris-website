@@ -21,3 +21,9 @@ services:
         sync: false
       - key: IMAGEKIT_PRIVATE_KEY
         sync: false
+      - key: CONTACT_NOTIFY_EMAIL
+        value: vanshagarwal0144@gmail.com
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        value: Inveris Website <onboarding@resend.dev>

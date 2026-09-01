@@ -1,75 +1,74 @@
-import Image from "next/image";
-import { Phone, ShieldCheck, User } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { CmsImage } from "@/components/ui/CmsImage";
 import { SectionTag } from "@/components/ui/SectionTag";
-import { contactPageContent } from "@/lib/content";
+import { PAGE_HERO_HEIGHT, PAGE_HERO_PADDING } from "@/components/shared/PageHero";
+import type { ContactHeroContent } from "@/lib/contact-content";
+import { cn } from "@/lib/cn";
 
-const iconMap = {
-  phone: Phone,
-  shield: ShieldCheck,
-  user: User,
-};
-
-export function ContactHeroSection() {
-  const { hero } = contactPageContent;
+export function ContactHeroSection({ content }: { content: ContactHeroContent }) {
+  const hero = content;
 
   return (
-    <section className="relative bg-navy overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[480px] lg:min-h-[520px]">
-        <Container className="flex items-center py-16 lg:py-20 lg:pr-12 relative z-10">
-          <div className="max-w-xl space-y-8">
-            <div className="space-y-5">
+    <section className="relative overflow-hidden bg-navy">
+      <div className="absolute inset-y-0 right-0 hidden w-[78%] lg:block">
+        <CmsImage
+          src={hero.image}
+          alt={hero.imageAlt || hero.titleWhite}
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="78vw"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-y-0 left-0 w-[32%] backdrop-blur-md"
+          style={{
+            maskImage: "linear-gradient(to right, black 0%, black 40%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, black 0%, black 40%, transparent 100%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-linear-to-r from-navy from-[0%] via-navy/70 via-[18%] to-transparent to-[36%]"
+        />
+      </div>
+
+      <Container className="relative z-10">
+        <div className={cn("flex flex-col lg:block", PAGE_HERO_HEIGHT)}>
+          <div className={cn("flex flex-1 items-center lg:max-w-[52%]", PAGE_HERO_PADDING)}>
+            <div className="max-w-3xl space-y-5">
               <SectionTag light withLine>
                 {hero.tag}
               </SectionTag>
 
-              <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight">
+              <h1 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
                 <span className="text-heading-inverse">{hero.titleWhite}</span>
                 <br />
                 <span className="text-gold">{hero.titleAccent}</span>
               </h1>
 
-              <p className="text-base md:text-lg text-paragraph-inverse leading-relaxed">
+              <p className="max-w-2xl text-base leading-relaxed text-paragraph-inverse md:text-lg">
                 {hero.description}
               </p>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2 border-t border-white/10">
-              {hero.trustItems.map((item, index) => {
-                const Icon = iconMap[item.icon];
-                const isLast = index === hero.trustItems.length - 1;
-
-                return (
-                  <div
-                    key={item.title}
-                    className={`flex gap-3 ${!isLast ? "sm:border-r sm:border-white/10 sm:pr-4" : ""}`}
-                  >
-                    <div className="w-10 h-10 rounded-full border border-gold/60 flex items-center justify-center shrink-0">
-                      <Icon size={18} className="text-gold" strokeWidth={1.5} />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-heading-inverse">{item.title}</p>
-                      <p className="text-xs text-paragraph-inverse mt-0.5">{item.description}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
           </div>
-        </Container>
 
-        <div className="relative h-72 lg:h-auto min-h-[300px]">
-          <Image
-            src={hero.image}
-            alt={hero.imageAlt}
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/70 to-navy/30" />
+          <div className="relative h-72 min-h-[300px] lg:hidden">
+            <CmsImage
+              src={hero.image}
+              alt={hero.imageAlt || hero.titleWhite}
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-linear-to-b from-navy via-navy/30 to-transparent"
+            />
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

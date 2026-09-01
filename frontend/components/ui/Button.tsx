@@ -8,6 +8,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   href?: string;
+  target?: string;
+  rel?: string;
   children: React.ReactNode;
   className?: string;
 }
@@ -31,6 +33,8 @@ export function Button({
   variant = "primary",
   size = "md",
   href,
+  target,
+  rel,
   children,
   className,
   ...props
@@ -44,7 +48,7 @@ export function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} target={target} rel={rel}>
         {children}
       </Link>
     );

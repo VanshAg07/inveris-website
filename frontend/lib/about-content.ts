@@ -56,9 +56,7 @@ export type AboutVisionBlock = {
 };
 
 export type AboutMissionVisionContent = {
-  intro: {
-    paragraphs: string[];
-  };
+  backgroundImage: string;
   mission: AboutMissionBlock;
   vision: AboutVisionBlock;
 };
@@ -84,9 +82,7 @@ export function getFallbackAboutContent(): AboutPageContent {
       imageAlt: "Modern glass office building",
     },
     missionVision: {
-      intro: {
-        paragraphs: [...aboutPageContent.missionVision.intro.paragraphs],
-      },
+      backgroundImage: aboutPageContent.missionVision.backgroundImage,
       mission: {
         ...aboutPageContent.missionVision.mission,
         items: [...aboutPageContent.missionVision.mission.items],

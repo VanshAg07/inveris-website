@@ -222,6 +222,16 @@ export function IndustriesEditor({
       </AdminSection>
 
       <AdminSection title="Value bar">
+        <TextField
+          label="Section heading"
+          value={content.valueBar.title}
+          onChange={(v) =>
+            setContent((prev) => ({
+              ...prev,
+              valueBar: { ...prev.valueBar, title: v },
+            }))
+          }
+        />
         {content.valueBar.items.map((item, index) => (
           <div
             key={item.id}

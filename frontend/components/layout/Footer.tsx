@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { NewsletterForm } from "@/components/layout/NewsletterForm";
 import { toTelHref, type FooterContent, type FooterSocialIcon } from "@/lib/footer-content";
 
 function SocialIcon({ icon }: { icon: FooterSocialIcon }) {
@@ -51,6 +52,7 @@ export function Footer({ content }: { content: FooterContent }) {
                 {content.description}
               </p>
             ) : null}
+            <NewsletterForm />
           </div>
 
           {content.links.map((group) => (

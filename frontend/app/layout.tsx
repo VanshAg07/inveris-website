@@ -50,7 +50,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const footer = await fetchFooterContent();
 
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} h-full scroll-smooth antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         <SiteFrame footer={footer}>{children}</SiteFrame>
       </body>
