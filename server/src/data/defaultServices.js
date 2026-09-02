@@ -74,44 +74,27 @@ const defaultServices = {
       },
     ],
   },
-  whyItMatters: {
-    tag: "WHY IT MATTERS",
-    title: "Connected Expertise. Better Outcomes.",
-    items: [
+  consultingCall: {
+    tag: "BOOK A CALL",
+    title: "Book a Consulting Call",
+    description:
+      "Share a few details about your business and we'll schedule a focused conversation with our consultants.",
+    submitLabel: "Request a call",
+    images: [
       {
-        id: "why-1",
-        title: "End-to-End Support",
-        description:
-          "Address multiple business priorities through a single, trusted partner.",
-        icon: "network",
+        id: "consult-img-1",
+        src: "/images/service-consulting.jpg",
+        alt: "Consultants collaborating in a meeting",
       },
       {
-        id: "why-2",
-        title: "Aligned Solutions",
-        description:
-          "Our service lines work together to deliver practical, coordinated solutions.",
-        icon: "target",
+        id: "consult-img-2",
+        src: "/images/service-compliance.jpg",
+        alt: "Team reviewing strategy documents",
       },
       {
-        id: "why-3",
-        title: "Better Decisions",
-        description:
-          "Access the right information and expertise to make confident decisions.",
-        icon: "chart",
-      },
-      {
-        id: "why-4",
-        title: "Stronger Foundations",
-        description:
-          "Build resilient systems, controls, and processes that support sustainable growth.",
-        icon: "shield",
-      },
-      {
-        id: "why-5",
-        title: "Long-Term Partnership",
-        description:
-          "We stay engaged beyond the project to help you evolve and scale.",
-        icon: "users",
+        id: "consult-img-3",
+        src: "/images/about-hero.jpg",
+        alt: "Modern office overlooking the city",
       },
     ],
   },

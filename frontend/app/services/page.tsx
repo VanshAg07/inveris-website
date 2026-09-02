@@ -1,7 +1,7 @@
 import { PageHero } from "@/components/shared/PageHero";
 import { PageCtaBanner } from "@/components/shared/PageCtaBanner";
+import { ConsultingCallSection } from "@/components/services/ConsultingCallSection";
 import { ServicesOfferSection } from "@/components/services/ServicesOfferSection";
-import { WhyItMattersSection } from "@/components/services/WhyItMattersSection";
 import { fetchServicesContent } from "@/lib/services-content";
 
 export const metadata = {
@@ -25,7 +25,7 @@ export default async function ServicesPage() {
         imageAlt={services.hero.imageAlt}
       />
       <ServicesOfferSection content={services.offer} />
-      <WhyItMattersSection content={services.whyItMatters} />
+      <ConsultingCallSection content={services.consultingCall} />
       <PageCtaBanner
         title={services.cta.title}
         description={services.cta.description}

@@ -86,8 +86,8 @@ function isServicesContent(body) {
     body.hero &&
     body.offer &&
     Array.isArray(body.offer.serviceLines) &&
-    body.whyItMatters &&
-    Array.isArray(body.whyItMatters.items) &&
+    body.consultingCall &&
+    Array.isArray(body.consultingCall.images) &&
     body.cta
   );
 }

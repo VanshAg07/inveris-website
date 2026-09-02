@@ -37,12 +37,24 @@ async function sendContactNotification(submission) {
     return false;
   }
 
-  const subject = submission.subject
-    ? `New Inveris enquiry: ${submission.subject}`
-    : `New Inveris enquiry from ${submission.name}`;
+  const isConsultingCall = /consulting call/i.test(
+    `${submission.enquiryType || ""} ${submission.subject || ""}`
+  );
+
+  const heading = isConsultingCall
+    ? "New consulting call request"
+    : "New contact form submission";
+  const subject = isConsultingCall
+    ? `New consulting call request from ${submission.name}`
+    : submission.subject
+      ? `New Inveris enquiry: ${submission.subject}`
+      : `New Inveris enquiry from ${submission.name}`;
+  const intro = isConsultingCall
+    ? "Someone requested a consulting call from the Inveris services page."
+    : "New contact form submission from the Inveris website.";
 
   const text = [
-    "New contact form submission from the Inveris website.",
+    intro,
     "",
     `Name: ${submission.name}`,
     `Email: ${submission.email}`,
@@ -61,7 +73,7 @@ async function sendContactNotification(submission) {
     <div style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto;padding:24px;background:#f8fafc;">
       <div style="background:#0b1f3a;color:#fff;padding:20px 24px;border-radius:12px 12px 0 0;">
         <p style="margin:0;letter-spacing:0.2em;font-size:11px;color:#c9a227;">INVERIS</p>
-        <h1 style="margin:8px 0 0;font-size:20px;">New contact form submission</h1>
+        <h1 style="margin:8px 0 0;font-size:20px;">${heading}</h1>
       </div>
       <div style="background:#fff;padding:24px;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;">
         <table style="width:100%;border-collapse:collapse;">

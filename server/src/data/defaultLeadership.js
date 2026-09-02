@@ -70,6 +70,7 @@ const defaultLeadership = {
   values: {
     tag: "WHAT DRIVES US",
     title: "Our Values. Our Compass.",
+    backgroundImage: "/images/about-building.jpg",
     items: [
       {
         id: "value-1",
@@ -105,6 +106,13 @@ const defaultLeadership = {
         description:
           "We continuously learn, evolve, and help our clients grow with confidence.",
         icon: "mountain",
+      },
+      {
+        id: "value-6",
+        title: "Client Partnership",
+        description:
+          "We put client outcomes first—staying close, aligning to their goals, and delivering advice that creates lasting impact.",
+        icon: "target",
       },
     ],
   },

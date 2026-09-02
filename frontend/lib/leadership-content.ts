@@ -54,6 +54,7 @@ export type LeadershipValueItem = {
 export type LeadershipValuesContent = {
   tag: string;
   title: string;
+  backgroundImage: string;
   items: LeadershipValueItem[];
 };
 
@@ -101,6 +102,7 @@ export function getFallbackLeadershipContent(): LeadershipPageContent {
     values: {
       tag: leadershipPageContent.values.tag,
       title: leadershipPageContent.values.title,
+      backgroundImage: leadershipPageContent.values.backgroundImage,
       items: leadershipPageContent.values.items.map((item, index) => ({
         ...item,
         id: `value-${index + 1}`,
@@ -121,8 +123,30 @@ export async function fetchLeadershipContent(): Promise<LeadershipPageContent> {
     if (!res.ok) throw new Error("Failed to load leadership content");
     const data = await res.json();
     if (!data?.content) throw new Error("Missing leadership content");
-    return data.content as LeadershipPageContent;
+    return withDefaultValues(data.content as LeadershipPageContent);
   } catch {
     return getFallbackLeadershipContent();
   }
+}
+
+function withDefaultValues(content: LeadershipPageContent): LeadershipPageContent {
+  const fallback = getFallbackLeadershipContent().values;
+  const items = content.values?.items ?? [];
+  const hasSixth =
+    items.length >= 6 ||
+    items.some(
+      (item) =>
+        item.id === "value-6" || /client partnership/i.test(item.title || "")
+    );
+
+  return {
+    ...content,
+    values: {
+      ...content.values,
+      tag: content.values?.tag || fallback.tag,
+      title: content.values?.title || fallback.title,
+      backgroundImage: content.values?.backgroundImage || fallback.backgroundImage,
+      items: hasSixth ? items : [...items, fallback.items[5]],
+    },
+  };
 }

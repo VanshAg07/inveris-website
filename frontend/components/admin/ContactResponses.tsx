@@ -92,7 +92,7 @@ export function ContactResponses() {
         <div>
           <h1 className="text-2xl font-bold text-navy">Form responses</h1>
           <p className="mt-1 text-sm text-text-body">
-            Messages from the public contact form. Each submission is also emailed to{" "}
+            Messages from the public contact form and consulting call requests. Each submission is also emailed to{" "}
             <span className="font-medium text-navy">vanshagarwal0144@gmail.com</span>.
           </p>
         </div>
@@ -121,7 +121,7 @@ export function ContactResponses() {
         <div className="rounded-xl border border-dashed border-border bg-white px-6 py-16 text-center">
           <p className="text-lg font-semibold text-navy">No responses yet</p>
           <p className="mt-1 text-sm text-text-body">
-            New messages from the contact page will show up here.
+            New messages from the contact page and consulting call form will show up here.
           </p>
         </div>
       ) : (

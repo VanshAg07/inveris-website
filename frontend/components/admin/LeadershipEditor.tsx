@@ -22,6 +22,7 @@ const valueIcons = [
   "award",
   "lightbulb",
   "mountain",
+  "target",
 ] as const;
 
 export function LeadershipEditor({
@@ -419,6 +420,16 @@ export function LeadershipEditor({
             }))
           }
         />
+        <ImageField
+          label="Background image"
+          value={content.values.backgroundImage}
+          onChange={(v) =>
+            setContent((prev) => ({
+              ...prev,
+              values: { ...prev.values, backgroundImage: v },
+            }))
+          }
+        />
         {content.values.items.map((item, index) => (
           <div
             key={item.id}
@@ -453,7 +464,7 @@ export function LeadershipEditor({
               onChange={(v) => updateValueItem(item.id, { description: v })}
             />
             <TextField
-              label="Icon (handshake, users, award, lightbulb, mountain)"
+              label="Icon (handshake, users, award, lightbulb, mountain, target)"
               value={item.icon}
               onChange={(v) => updateValueItem(item.id, { icon: v })}
             />

@@ -31,29 +31,30 @@ export type ServicesOfferContent = {
   serviceLines: ServicesLineItem[];
 };
 
-export type ServicesWhyItem = {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-};
-
-export type ServicesWhyContent = {
-  tag: string;
-  title: string;
-  items: ServicesWhyItem[];
-};
-
 export type ServicesCtaContent = {
   title: string;
   description: string;
   cta: ServicesCtaLink;
 };
 
+export type ServicesConsultingImage = {
+  id: string;
+  src: string;
+  alt: string;
+};
+
+export type ServicesConsultingCallContent = {
+  tag: string;
+  title: string;
+  description: string;
+  submitLabel: string;
+  images: ServicesConsultingImage[];
+};
+
 export type ServicesPageContent = {
   hero: ServicesHeroContent;
   offer: ServicesOfferContent;
-  whyItMatters: ServicesWhyContent;
+  consultingCall: ServicesConsultingCallContent;
   cta: ServicesCtaContent;
 };
 
@@ -70,18 +71,48 @@ export function getFallbackServicesContent(): ServicesPageContent {
         items: [...line.items],
       })),
     },
-    whyItMatters: {
-      tag: servicesPageContent.whyItMatters.tag,
-      title: servicesPageContent.whyItMatters.title,
-      items: servicesPageContent.whyItMatters.items.map((item, index) => ({
-        ...item,
-        id: `why-${index + 1}`,
+    consultingCall: {
+      tag: servicesPageContent.consultingCall.tag,
+      title: servicesPageContent.consultingCall.title,
+      description: servicesPageContent.consultingCall.description,
+      submitLabel: servicesPageContent.consultingCall.submitLabel,
+      images: servicesPageContent.consultingCall.images.map((image, index) => ({
+        ...image,
+        id: image.id || `consult-img-${index + 1}`,
       })),
     },
     cta: {
       ...servicesPageContent.cta,
       cta: { ...servicesPageContent.cta.cta },
     },
+  };
+}
+
+function withConsultingCall(content: ServicesPageContent): ServicesPageContent {
+  const fallback = getFallbackServicesContent().consultingCall;
+  const incoming = content.consultingCall;
+  const { whyItMatters: _removed, ...rest } = content as ServicesPageContent & {
+    whyItMatters?: unknown;
+  };
+
+  return {
+    ...rest,
+    consultingCall: incoming
+      ? {
+          tag: incoming.tag || fallback.tag,
+          title: incoming.title || fallback.title,
+          description: incoming.description || fallback.description,
+          submitLabel: incoming.submitLabel || fallback.submitLabel,
+          images:
+            Array.isArray(incoming.images) && incoming.images.length > 0
+              ? incoming.images.map((image, index) => ({
+                  id: image.id || `consult-img-${index + 1}`,
+                  src: image.src || "",
+                  alt: image.alt || "",
+                }))
+              : fallback.images,
+        }
+      : fallback,
   };
 }
 
@@ -93,7 +124,7 @@ export async function fetchServicesContent(): Promise<ServicesPageContent> {
     if (!res.ok) throw new Error("Failed to load services content");
     const data = await res.json();
     if (!data?.content) throw new Error("Missing services content");
-    return data.content as ServicesPageContent;
+    return withConsultingCall(data.content as ServicesPageContent);
   } catch {
     return getFallbackServicesContent();
   }

@@ -13,7 +13,20 @@ function nextId(prefix: string) {
 const lineIcons = ["consulting", "recruitment", "compliance", "audit"] as const;
 
 export function ServicesEditor({ initialContent }: { initialContent: ServicesPageContent }) {
-  const [content, setContent] = useState(initialContent);
+  const [content, setContent] = useState(() =>
+    initialContent.consultingCall
+      ? initialContent
+      : {
+          ...initialContent,
+          consultingCall: {
+            tag: "BOOK A CALL",
+            title: "Book a Consulting Call",
+            description: "",
+            submitLabel: "Request a call",
+            images: [],
+          },
+        }
+  );
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
@@ -213,70 +226,90 @@ export function ServicesEditor({ initialContent }: { initialContent: ServicesPag
         />
       </AdminSection>
 
-      <AdminSection title="Why it matters">
+      <AdminSection title="Book a consulting call">
         <TextField
           label="Tag"
-          value={content.whyItMatters.tag}
+          value={content.consultingCall.tag}
           onChange={(v) =>
             setContent((prev) => ({
               ...prev,
-              whyItMatters: { ...prev.whyItMatters, tag: v },
+              consultingCall: { ...prev.consultingCall, tag: v },
             }))
           }
         />
         <TextField
           label="Title"
-          value={content.whyItMatters.title}
+          value={content.consultingCall.title}
           onChange={(v) =>
             setContent((prev) => ({
               ...prev,
-              whyItMatters: { ...prev.whyItMatters, title: v },
+              consultingCall: { ...prev.consultingCall, title: v },
             }))
           }
         />
-        {content.whyItMatters.items.map((item, index) => (
-          <div key={item.id} className="space-y-4 rounded-lg border border-border bg-surface-alt p-4">
+        <TextField
+          label="Description"
+          multiline
+          value={content.consultingCall.description}
+          onChange={(v) =>
+            setContent((prev) => ({
+              ...prev,
+              consultingCall: { ...prev.consultingCall, description: v },
+            }))
+          }
+        />
+        <TextField
+          label="Button label"
+          value={content.consultingCall.submitLabel}
+          onChange={(v) =>
+            setContent((prev) => ({
+              ...prev,
+              consultingCall: { ...prev.consultingCall, submitLabel: v },
+            }))
+          }
+        />
+        {content.consultingCall.images.map((image, index) => (
+          <div key={image.id} className="space-y-4 rounded-lg border border-border bg-surface-alt p-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-navy">Item {index + 1}</h3>
+              <h3 className="text-sm font-bold text-navy">Image {index + 1}</h3>
               <DeleteButton
-                label="Delete item"
+                label="Delete image"
                 onClick={() =>
                   setContent((prev) => ({
                     ...prev,
-                    whyItMatters: {
-                      ...prev.whyItMatters,
-                      items: prev.whyItMatters.items.filter((entry) => entry.id !== item.id),
+                    consultingCall: {
+                      ...prev.consultingCall,
+                      images: prev.consultingCall.images.filter((entry) => entry.id !== image.id),
                     },
                   }))
                 }
               />
             </div>
-            <TextField
-              label="Title"
-              value={item.title}
+            <ImageField
+              label="Image"
+              value={image.src}
               onChange={(v) =>
                 setContent((prev) => ({
                   ...prev,
-                  whyItMatters: {
-                    ...prev.whyItMatters,
-                    items: prev.whyItMatters.items.map((entry) =>
-                      entry.id === item.id ? { ...entry, title: v } : entry
+                  consultingCall: {
+                    ...prev.consultingCall,
+                    images: prev.consultingCall.images.map((entry) =>
+                      entry.id === image.id ? { ...entry, src: v } : entry
                     ),
                   },
                 }))
               }
             />
             <TextField
-              label="Description"
-              multiline
-              value={item.description}
+              label="Alt text"
+              value={image.alt}
               onChange={(v) =>
                 setContent((prev) => ({
                   ...prev,
-                  whyItMatters: {
-                    ...prev.whyItMatters,
-                    items: prev.whyItMatters.items.map((entry) =>
-                      entry.id === item.id ? { ...entry, description: v } : entry
+                  consultingCall: {
+                    ...prev.consultingCall,
+                    images: prev.consultingCall.images.map((entry) =>
+                      entry.id === image.id ? { ...entry, alt: v } : entry
                     ),
                   },
                 }))
@@ -285,20 +318,15 @@ export function ServicesEditor({ initialContent }: { initialContent: ServicesPag
           </div>
         ))}
         <AddButton
-          label="Add item"
+          label="Add image"
           onClick={() =>
             setContent((prev) => ({
               ...prev,
-              whyItMatters: {
-                ...prev.whyItMatters,
-                items: [
-                  ...prev.whyItMatters.items,
-                  {
-                    id: nextId("why"),
-                    title: "New item",
-                    description: "",
-                    icon: "network",
-                  },
+              consultingCall: {
+                ...prev.consultingCall,
+                images: [
+                  ...prev.consultingCall.images,
+                  { id: nextId("consult-img"), src: "", alt: "" },
                 ],
               },
             }))
