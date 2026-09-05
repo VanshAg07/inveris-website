@@ -5,6 +5,7 @@ import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { CmsImage } from "@/components/ui/CmsImage";
+import { MagicCard } from "@/components/magic/magic-card";
 import type { ContactFaqContent } from "@/lib/contact-content";
 import { cn } from "@/lib/cn";
 
@@ -23,18 +24,18 @@ export function FaqSection({ content }: { content: ContactFaqContent }) {
       : defaultAvatars;
 
   return (
-    <section className="bg-surface py-16 lg:py-24">
+    <section className="bg-surface py-20 lg:py-28">
       <Container className="max-w-3xl">
-        <h2 className="mb-10 text-center text-3xl font-bold text-heading md:text-4xl lg:mb-12">
+        <h2 className="mb-10 text-center text-3xl font-bold text-heading md:text-5xl lg:mb-12">
           {faq.title}
         </h2>
 
-        <div className="divide-y divide-border border-y border-border">
+        <div className="space-y-3">
           {faq.items.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <div key={item.id}>
+              <MagicCard key={item.id} className="px-5">
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? -1 : index)}
@@ -47,19 +48,18 @@ export function FaqSection({ content }: { content: ContactFaqContent }) {
                   <span
                     className={cn(
                       "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-paragraph",
-                      isOpen && "bg-surface-muted"
+                      isOpen && "bg-navy text-white border-navy"
                     )}
                   >
                     {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                   </span>
                 </button>
-
                 {isOpen ? (
                   <p className="-mt-1 pb-5 text-sm leading-relaxed text-paragraph">
                     {item.answer}
                   </p>
                 ) : null}
-              </div>
+              </MagicCard>
             );
           })}
         </div>

@@ -1,7 +1,8 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { MagicCard } from "@/components/magic/magic-card";
+import { BorderBeam } from "@/components/magic/border-beam";
 import type { ContactFormContent, ContactInfoContent } from "@/lib/contact-content";
 
 const iconMap = {
@@ -65,29 +66,28 @@ export function ContactMainSection({
   const rows = buildContactRows(contactInfo);
 
   return (
-    <section id="contact-form" className="scroll-mt-28 bg-surface-muted py-16 lg:py-24">
+    <section id="contact-form" className="scroll-mt-28 bg-surface-muted py-20 lg:py-28">
       <Container>
-        <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-5 lg:gap-12">
-          <Card className="flex h-full flex-col border-0 p-6 lg:col-span-3 lg:p-8">
+        <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-5 lg:gap-10">
+          <MagicCard className="flex h-full flex-col p-6 lg:col-span-3 lg:p-8">
+            <BorderBeam size={90} duration={12} />
             <div className="mb-6 shrink-0">
               <span className="mb-4 block h-px w-8 bg-gold" aria-hidden="true" />
-              <h2 className="text-2xl font-bold text-heading">{form.title}</h2>
+              <h2 className="text-2xl font-bold text-heading md:text-3xl">{form.title}</h2>
             </div>
             <ContactForm form={form} className="flex-1" />
-          </Card>
+          </MagicCard>
 
           <div className="flex h-full flex-col lg:col-span-2">
             <div className="mb-8 shrink-0">
               <span className="mb-4 block h-px w-8 bg-gold" aria-hidden="true" />
-              <h2 className="text-2xl font-bold text-heading">{contactInfo.title}</h2>
+              <h2 className="text-2xl font-bold text-heading md:text-3xl">{contactInfo.title}</h2>
             </div>
-
-            <div className="divide-y divide-border">
+            <div className="space-y-3">
               {rows.map((item) => {
                 const Icon = iconMap[item.icon];
-
                 return (
-                  <div key={item.id} className="flex gap-4 py-6 first:pt-0">
+                  <MagicCard key={item.id} className="flex gap-4 p-5">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy">
                       <Icon size={18} className="text-gold" strokeWidth={1.5} />
                     </div>
@@ -111,7 +111,7 @@ export function ContactMainSection({
                         )}
                       </div>
                     </div>
-                  </div>
+                  </MagicCard>
                 );
               })}
             </div>

@@ -11,7 +11,7 @@ import { getApiBaseUrl } from "@/lib/home-content";
 import type { ServicesConsultingCallContent } from "@/lib/services-content";
 
 const inputClass =
-  "w-full px-4 py-3 rounded border border-border bg-white text-heading text-sm placeholder:text-paragraph-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold";
+  "w-full px-4 py-3 rounded-xl border border-border bg-white text-heading text-sm placeholder:text-paragraph-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold";
 
 type FormState = {
   name: string;
@@ -106,13 +106,13 @@ export function ConsultingCallSection({
   }
 
   return (
-    <section id="book-a-call" className="scroll-mt-28 bg-surface py-16 lg:py-24">
+    <section id="book-a-call" className="scroll-mt-28 bg-surface-muted py-20 lg:py-28">
       <Container>
         <div className="mx-auto mb-10 max-w-3xl space-y-4 text-center lg:mb-14">
           <SectionTag withLine className="justify-center">
             {content.tag}
           </SectionTag>
-          <h2 className="text-3xl font-bold leading-tight text-heading md:text-4xl">
+          <h2 className="text-3xl font-bold leading-tight text-heading md:text-5xl">
             {content.title}
           </h2>
           <p className="text-paragraph leading-relaxed">{content.description}</p>
@@ -220,13 +220,13 @@ export function ConsultingCallSection({
               </div>
 
               {status === "success" && successMessage ? (
-                <div className="rounded border border-green-200 bg-green-50 p-4 text-sm text-green-800">
+                <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-800">
                   {successMessage}
                 </div>
               ) : null}
 
               {status === "error" && errors.length > 0 ? (
-                <div className="space-y-1 rounded border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                <div className="space-y-1 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
                   {errors.map((err) => (
                     <p key={err}>{err}</p>
                   ))}
@@ -242,7 +242,7 @@ export function ConsultingCallSection({
 
           <div className="grid min-h-95 grid-cols-2 grid-rows-2 gap-4 lg:min-h-full">
             {images[0] ? (
-              <div className="relative col-span-2 overflow-hidden rounded-lg">
+              <div className="relative col-span-2 overflow-hidden rounded-2xl">
                 <CmsImage
                   src={images[0].src}
                   alt={images[0].alt}
@@ -253,7 +253,7 @@ export function ConsultingCallSection({
               </div>
             ) : null}
             {images[1] ? (
-              <div className="relative overflow-hidden rounded-lg">
+              <div className="relative overflow-hidden rounded-2xl">
                 <CmsImage
                   src={images[1].src}
                   alt={images[1].alt}
@@ -264,7 +264,7 @@ export function ConsultingCallSection({
               </div>
             ) : null}
             {images[2] ? (
-              <div className="relative overflow-hidden rounded-lg">
+              <div className="relative overflow-hidden rounded-2xl">
                 <CmsImage
                   src={images[2].src}
                   alt={images[2].alt}
@@ -274,7 +274,7 @@ export function ConsultingCallSection({
                 />
               </div>
             ) : images[1] ? (
-              <div className="relative overflow-hidden rounded-lg bg-navy">
+              <div className="relative overflow-hidden rounded-2xl bg-navy">
                 {images[0] ? (
                   <CmsImage
                     src={images[0].src}

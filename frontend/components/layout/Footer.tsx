@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
+import { Logo } from "@/components/layout/Logo";
 import { NewsletterForm } from "@/components/layout/NewsletterForm";
+import { GridPattern } from "@/components/magic/grid-pattern";
 import { toTelHref, type FooterContent, type FooterSocialIcon } from "@/lib/footer-content";
 
 function SocialIcon({ icon }: { icon: FooterSocialIcon }) {
@@ -38,15 +41,30 @@ export function Footer({ content }: { content: FooterContent }) {
   const mobileHref = toTelHref(contact.mobile);
 
   return (
-    <footer className="bg-navy text-paragraph-inverse mt-auto">
-      <Container>
-        <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <span className="text-2xl lg:text-3xl font-bold font-serif text-heading-inverse tracking-wide">
-                {content.companyName}
-              </span>
-            </Link>
+    <footer className="relative overflow-hidden bg-navy text-paragraph-inverse mt-auto">
+      <GridPattern className="opacity-30" />
+      <div className="pointer-events-none absolute -top-32 left-1/3 h-80 w-80 rounded-full bg-gold/12 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 rounded-full bg-gold/8 blur-3xl" />
+
+      <Container className="relative">
+        <div className="flex flex-col gap-8 border-b border-white/10 py-12 lg:flex-row lg:items-end lg:justify-between lg:py-16">
+          <div className="max-w-xl space-y-3">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
+              Start a conversation
+            </p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-heading-inverse leading-[1.15]">
+              Let&apos;s build what&apos;s next, together.
+            </h2>
+          </div>
+          <Button variant="gold" size="lg" href="/contact">
+            Contact Us
+            <ArrowRight size={18} />
+          </Button>
+        </div>
+
+        <div className="py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+          <div className="space-y-5 lg:col-span-4">
+            <Logo light />
             {content.description ? (
               <p className="text-sm leading-relaxed max-w-xs text-paragraph-inverse">
                 {content.description}
@@ -56,14 +74,14 @@ export function Footer({ content }: { content: FooterContent }) {
           </div>
 
           {content.links.map((group) => (
-            <div key={group.id}>
+            <div key={group.id} className="lg:col-span-2">
               {group.title ? (
-                <h4 className="text-heading-inverse font-semibold text-sm mb-4">
+                <h4 className="text-heading-inverse font-display text-lg font-medium mb-5">
                   {group.title}
                 </h4>
               ) : null}
               {group.items.length ? (
-                <ul className="space-y-2.5">
+                <ul className="space-y-3">
                   {group.items.map((item) => (
                     <li key={item.id}>
                       <Link
@@ -79,9 +97,9 @@ export function Footer({ content }: { content: FooterContent }) {
             </div>
           ))}
 
-          <div>
+          <div className="lg:col-span-4">
             {contact.title ? (
-              <h4 className="text-heading-inverse font-semibold text-sm mb-4">
+              <h4 className="text-heading-inverse font-display text-lg font-medium mb-5">
                 {contact.title}
               </h4>
             ) : null}
@@ -122,33 +140,32 @@ export function Footer({ content }: { content: FooterContent }) {
                 </li>
               ) : null}
             </ul>
-
-            {contact.social.length ? (
-              <div className="flex gap-3 mt-5">
-                {contact.social.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.href || "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={item.label}
-                    className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-paragraph-inverse hover:border-gold hover:text-gold transition-colors"
-                  >
-                    <SocialIcon icon={item.icon} />
-                  </a>
-                ))}
-              </div>
-            ) : null}
           </div>
         </div>
 
-        {content.copyright ? (
-          <div className="border-t border-white/10 py-6">
-            <p className="text-sm text-center text-paragraph-inverse">
+        <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-white/10 py-6">
+          {content.copyright ? (
+            <p className="text-xs sm:text-sm text-paragraph-inverse/80">
               {content.copyright}
             </p>
-          </div>
-        ) : null}
+          ) : null}
+          {contact.social.length ? (
+            <div className="flex gap-3">
+              {contact.social.map((item) => (
+                <a
+                  key={item.id}
+                  href={item.href || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={item.label}
+                  className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-paragraph-inverse hover:border-gold hover:text-gold hover:bg-white/5 transition-colors"
+                >
+                  <SocialIcon icon={item.icon} />
+                </a>
+              ))}
+            </div>
+          ) : null}
+        </div>
       </Container>
     </footer>
   );

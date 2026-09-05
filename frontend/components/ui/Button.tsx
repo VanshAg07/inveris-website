@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-type ButtonVariant = "primary" | "gold" | "outline" | "ghost";
+type ButtonVariant = "primary" | "gold" | "outline" | "ghost" | "light";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,11 +16,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-navy text-text-inverse hover:bg-navy-light border border-navy",
-  gold: "bg-gold text-navy hover:bg-gold-light border border-gold",
+    "bg-navy text-text-inverse hover:bg-navy-light border border-white/10 shadow-[0_10px_30px_rgba(7,16,31,0.18)]",
+  gold: "bg-gold text-navy hover:bg-gold-light border border-gold/70 shadow-[0_10px_30px_rgba(196,164,132,0.28)]",
   outline:
-    "bg-transparent text-navy border border-navy hover:bg-navy hover:text-text-inverse",
+    "bg-transparent text-navy border border-navy/20 hover:border-navy hover:bg-navy hover:text-text-inverse",
   ghost: "bg-transparent text-navy hover:bg-surface-muted border border-transparent",
+  light:
+    "bg-white/10 text-white border border-white/20 hover:bg-white hover:text-navy backdrop-blur-md",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -40,7 +42,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded font-semibold transition-all duration-200 cursor-pointer",
+    "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 cursor-pointer hover:-translate-y-0.5",
     variantStyles[variant],
     sizeStyles[size],
     className

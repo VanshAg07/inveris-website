@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { CmsImage } from "@/components/ui/CmsImage";
 import { SectionTag } from "@/components/ui/SectionTag";
+import { MagicCard } from "@/components/magic/magic-card";
+import { BorderBeam } from "@/components/magic/border-beam";
 import type { LeadershipTeamContent } from "@/lib/leadership-content";
 
 export function LeadershipTeamSection({
@@ -12,19 +14,18 @@ export function LeadershipTeamSection({
   const team = content;
 
   return (
-    <section className="py-12 lg:py-16 bg-surface">
+    <section className="py-16 lg:py-24 bg-surface">
       <Container>
         <div className="text-center space-y-3 mb-10 lg:mb-14">
-          <SectionTag withLine className="justify-center">
-            {team.tag}
-          </SectionTag>
-          <h2 className="text-3xl md:text-4xl font-bold text-heading">{team.title}</h2>
+          <SectionTag className="justify-center">{team.tag}</SectionTag>
+          <h2 className="text-3xl md:text-5xl font-bold text-heading">{team.title}</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12 lg:gap-x-16 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {team.members.map((member) => (
-            <article key={member.id} className="flex flex-col items-center text-center">
-              <div className="relative h-44 w-44 sm:h-48 sm:w-48 rounded-full overflow-hidden shrink-0">
+            <MagicCard key={member.id} className="flex flex-col items-center p-8 text-center">
+              <BorderBeam size={80} duration={11} />
+              <div className="relative h-44 w-44 sm:h-48 sm:w-48 rounded-full overflow-hidden shrink-0 ring-4 ring-gold/20">
                 <CmsImage
                   src={member.image}
                   alt={member.name}
@@ -33,14 +34,12 @@ export function LeadershipTeamSection({
                   sizes="(max-width: 768px) 176px, 192px"
                 />
               </div>
-
               <h3 className="mt-6 text-lg sm:text-xl font-bold text-heading uppercase tracking-wide">
                 {member.name}
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-paragraph-muted uppercase tracking-[0.15em]">
                 {member.role}
               </p>
-
               {member.linkedin ? (
                 <Link
                   href={member.linkedin}
@@ -54,11 +53,10 @@ export function LeadershipTeamSection({
                   </svg>
                 </Link>
               ) : null}
-
               <p className="mt-4 text-sm text-paragraph leading-relaxed max-w-md">
                 {member.bio}
               </p>
-            </article>
+            </MagicCard>
           ))}
         </div>
       </Container>

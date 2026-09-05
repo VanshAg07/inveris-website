@@ -8,8 +8,8 @@ interface IconCircleProps {
 }
 
 const variantStyles = {
-  gold: "bg-gold text-navy",
-  navy: "bg-navy text-gold",
+  gold: "bg-gold text-navy shadow-[0_8px_24px_rgba(196,164,132,0.35)]",
+  navy: "bg-navy text-gold shadow-[0_8px_24px_rgba(7,16,31,0.25)]",
   white: "bg-white text-gold border border-border",
 };
 

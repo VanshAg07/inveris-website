@@ -10,8 +10,8 @@ export function Card({ children, className, hover = false }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-lg bg-surface border border-border",
-        hover && "transition-shadow duration-300 hover:shadow-lg",
+        "rounded-2xl bg-surface border border-border/80",
+        hover && "transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]",
         className
       )}
       style={{ boxShadow: "var(--shadow-card)" }}

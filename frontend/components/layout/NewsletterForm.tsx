@@ -51,10 +51,10 @@ export function NewsletterForm() {
 
   return (
     <div className="space-y-3 pt-2">
-      <h4 className="text-heading-inverse text-lg font-semibold">Subscribe to newsletter</h4>
+      <h4 className="font-display text-heading-inverse text-lg font-medium">Subscribe to newsletter</h4>
       <form
         onSubmit={(event) => void handleSubmit(event)}
-        className="flex max-w-xs items-center rounded-full border border-white/25 bg-transparent p-1 pl-4"
+        className="flex max-w-sm items-center rounded-full border border-white/15 bg-white/8 p-1 pl-4 backdrop-blur-md"
       >
         <label htmlFor="newsletter-email" className="sr-only">
           Email address

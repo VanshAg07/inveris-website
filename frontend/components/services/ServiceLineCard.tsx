@@ -1,9 +1,10 @@
 "use client";
 
 import { Check, Crown, Shield, ShieldCheck, Users } from "lucide-react";
-import { Card } from "@/components/ui/Card";
 import { IconCircle } from "@/components/ui/IconCircle";
 import { CmsImage } from "@/components/ui/CmsImage";
+import { MagicCard } from "@/components/magic/magic-card";
+import { BorderBeam } from "@/components/magic/border-beam";
 
 type ServiceIcon = "consulting" | "recruitment" | "compliance" | "audit";
 
@@ -34,10 +35,18 @@ export function ServiceLineCard({
   const Icon = iconMap[icon as ServiceIcon] ?? Crown;
 
   return (
-    <Card className="overflow-hidden border-0 transition-all duration-300 hover:border-gold/40">
-      <button
-        type="button"
+    <MagicCard className="overflow-hidden">
+      <BorderBeam size={90} duration={12} />
+      <div
+        role="button"
+        tabIndex={0}
         onClick={() => onEnquire(title)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onEnquire(title);
+          }
+        }}
         className="grid w-full cursor-pointer grid-cols-1 text-left lg:grid-cols-[minmax(280px,38%)_1fr]"
       >
         <div className="relative h-56 sm:h-64 lg:h-auto lg:min-h-[280px]">
@@ -45,11 +54,10 @@ export function ServiceLineCard({
             src={image}
             alt={title}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
             sizes="(max-width: 1024px) 100vw, 38vw"
           />
         </div>
-
         <div className="flex flex-col p-6 lg:p-8">
           <div className="flex items-center gap-4">
             <IconCircle variant="navy" size="md">
@@ -57,17 +65,12 @@ export function ServiceLineCard({
             </IconCircle>
             <div>
               <h3 className="text-xl md:text-2xl font-bold text-heading">{title}</h3>
-              <span className="mt-2 block h-0.5 w-10 bg-gold" aria-hidden="true" />
               <p className="mt-2 text-xs font-semibold tracking-wide text-gold">
                 Click to enquire
               </p>
             </div>
           </div>
-
-          <p className="mt-5 text-sm md:text-base text-paragraph leading-relaxed">
-            {description}
-          </p>
-
+          <p className="mt-5 text-sm md:text-base text-paragraph leading-relaxed">{description}</p>
           <ul className="mt-6 space-y-3">
             {items.map((item) => (
               <li key={item} className="flex gap-2.5 text-sm text-paragraph md:text-base">
@@ -79,7 +82,7 @@ export function ServiceLineCard({
             ))}
           </ul>
         </div>
-      </button>
-    </Card>
+      </div>
+    </MagicCard>
   );
 }

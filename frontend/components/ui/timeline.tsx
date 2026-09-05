@@ -42,8 +42,8 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
             className="flex items-start justify-start pt-10 md:gap-20 lg:gap-28 md:pt-32"
           >
             <div className="relative flex max-w-xs shrink-0 flex-col items-start self-start md:w-[46%] md:max-w-none md:flex-row lg:w-[48%]">
-              <div className="absolute left-3 flex h-10 w-10 items-center justify-center rounded-full bg-surface md:left-3">
-                <div className="h-4 w-4 rounded-full border border-gold/50 bg-gold/20 p-2" />
+              <div className="absolute left-3 flex h-10 w-10 items-center justify-center rounded-full bg-surface shadow-[0_0_0_6px_rgba(196,164,132,0.12)] md:left-3">
+                <div className="h-3 w-3 rounded-full bg-gold" />
               </div>
               <h3 className="hidden text-xl font-bold text-heading md:block md:pl-20 md:text-2xl lg:text-4xl">
                 {item.title}

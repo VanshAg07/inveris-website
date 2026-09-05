@@ -2,6 +2,8 @@ import { Container } from "@/components/ui/Container";
 import { CmsImage } from "@/components/ui/CmsImage";
 import { SectionTag } from "@/components/ui/SectionTag";
 import { PAGE_HERO_HEIGHT, PAGE_HERO_PADDING } from "@/components/shared/PageHero";
+import { Spotlight } from "@/components/magic/spotlight";
+import { GridPattern } from "@/components/magic/grid-pattern";
 import type { ContactHeroContent } from "@/lib/contact-content";
 import { cn } from "@/lib/cn";
 
@@ -21,38 +23,27 @@ export function ContactHeroSection({ content }: { content: ContactHeroContent })
         />
         <div
           aria-hidden="true"
-          className="absolute inset-y-0 left-0 w-[32%] backdrop-blur-md"
-          style={{
-            maskImage: "linear-gradient(to right, black 0%, black 40%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to right, black 0%, black 40%, transparent 100%)",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-r from-navy from-[0%] via-navy/70 via-[18%] to-transparent to-[36%]"
+          className="absolute inset-0 bg-linear-to-r from-navy from-[0%] via-navy/80 via-[22%] to-navy/20 to-[70%]"
         />
       </div>
+      <GridPattern className="opacity-25" />
+      <Spotlight className="-top-40 left-10" fill="#c4a484" />
 
       <Container className="relative z-10">
         <div className={cn("flex flex-col lg:block", PAGE_HERO_HEIGHT)}>
           <div className={cn("flex flex-1 items-center lg:max-w-[52%]", PAGE_HERO_PADDING)}>
             <div className="max-w-3xl space-y-5">
-              <SectionTag light withLine>
-                {hero.tag}
-              </SectionTag>
-
-              <h1 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+              <SectionTag light>{hero.tag}</SectionTag>
+              <h1 className="text-3xl font-bold leading-[1.1] md:text-5xl lg:text-6xl">
                 <span className="text-heading-inverse">{hero.titleWhite}</span>
                 <br />
                 <span className="text-gold">{hero.titleAccent}</span>
               </h1>
-
               <p className="max-w-2xl text-base leading-relaxed text-paragraph-inverse md:text-lg">
                 {hero.description}
               </p>
             </div>
           </div>
-
           <div className="relative h-72 min-h-[300px] lg:hidden">
             <CmsImage
               src={hero.image}
@@ -62,10 +53,7 @@ export function ContactHeroSection({ content }: { content: ContactHeroContent })
               className="object-cover object-center"
               sizes="100vw"
             />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-linear-to-b from-navy via-navy/30 to-transparent"
-            />
+            <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-navy via-navy/30 to-transparent" />
           </div>
         </div>
       </Container>

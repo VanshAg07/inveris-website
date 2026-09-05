@@ -17,7 +17,7 @@ interface FormData {
 }
 
 const inputClass =
-  "w-full px-4 py-3 rounded border border-border bg-white text-heading text-sm placeholder:text-paragraph-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold";
+  "w-full px-4 py-3 rounded-xl border border-border bg-white text-heading text-sm placeholder:text-paragraph-muted focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-shadow";
 
 export function ContactForm({
   form,
@@ -208,13 +208,13 @@ export function ContactForm({
       </div>
 
       {status === "success" && (
-        <div className="rounded border border-green-200 bg-green-50 p-4 text-sm text-green-800">
+        <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-800">
           {successMessage}
         </div>
       )}
 
       {status === "error" && errors.length > 0 && (
-        <div className="space-y-1 rounded border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+        <div className="space-y-1 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
           {errors.map((err) => (
             <p key={err}>{err}</p>
           ))}

@@ -19,13 +19,13 @@ export function IndustriesGridSection({
           {industry.description}
         </p>
         {industry.image ? (
-          <div className="overflow-visible transition-transform duration-500 ease-out hover:scale-[1.05]">
+          <div className="overflow-hidden rounded-2xl transition-transform duration-500 ease-out hover:scale-[1.03]">
             <CmsImage
               src={industry.image}
               alt={industry.title}
               width={900}
               height={560}
-              className="h-40 w-full rounded-lg object-cover shadow-[var(--shadow-card)] md:h-52 lg:h-60"
+              className="h-40 w-full object-cover shadow-[var(--shadow-card)] md:h-52 lg:h-60"
             />
           </div>
         ) : null}

@@ -2,31 +2,31 @@
 
 :root {
   /* Brand primitives */
-  --color-navy: #0a1a2f;
-  --color-navy-light: #152a45;
+  --color-navy: #07101f;
+  --color-navy-light: #12233a;
   --color-gold: #c4a484;
-  --color-gold-light: #d4b894;
+  --color-gold-light: #dcc4a8;
   --color-gold-dark: #a8896a;
 
   /* Surfaces */
-  --color-surface: #ffffff;
-  --color-surface-muted: #f5f5f5;
-  --color-surface-alt: #f8f7f5;
+  --color-surface: #fbfaf7;
+  --color-surface-muted: #f3f0ea;
+  --color-surface-alt: #f7f4ef;
 
   /*
    * Semantic text tokens — change once, updates everywhere.
    * Use text-heading / text-paragraph on light sections,
    * text-heading-inverse / text-paragraph-inverse on dark sections.
    */
-  --color-heading: #0a1a2f;
+  --color-heading: #07101f;
   --color-heading-inverse: #ffffff;
-  --color-paragraph: #64748b;
-  --color-paragraph-muted: #94a3b8;
-  --color-paragraph-inverse: rgba(255, 255, 255, 0.8);
+  --color-paragraph: #5b6576;
+  --color-paragraph-muted: #8b93a3;
+  --color-paragraph-inverse: rgba(255, 255, 255, 0.78);
   --color-label: #c4a484;
-  --color-logo: #0a1a2f;
-  --color-nav: #64748b;
-  --color-nav-active: #0a1a2f;
+  --color-logo: #07101f;
+  --color-nav: #5b6576;
+  --color-nav-active: #07101f;
 
   /* Legacy aliases (point to semantic tokens) */
   --color-text-primary: var(--color-heading);
@@ -35,13 +35,20 @@
   --color-text-inverse: var(--color-heading-inverse);
 
   /* Borders & shadows */
-  --color-border: #e2e8f0;
-  --shadow-card: 0 4px 24px rgba(10, 26, 47, 0.08);
-  --shadow-card-hover: 0 8px 32px rgba(10, 26, 47, 0.12);
+  --color-border: #e6e1d8;
+  --shadow-card: 0 8px 32px rgba(7, 16, 31, 0.08);
+  --shadow-card-hover: 0 18px 48px rgba(7, 16, 31, 0.14);
 
   /* Layout */
   --container-max: 1280px;
   --section-py: 5rem;
+  --header-height: 5.25rem;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 6rem;
+  }
 }
 
 @theme inline {
@@ -68,6 +75,15 @@
   --color-text-inverse: var(--color-text-inverse);
   --color-border: var(--color-border);
   --font-sans: var(--font-inter);
+  --font-display: var(--font-playfair);
+  --font-serif: var(--font-playfair);
+  --animate-spotlight: spotlight 2s ease 0.25s 1 forwards;
+  --animate-marquee: marquee var(--duration, 40s) linear infinite;
+  --animate-marquee-reverse: marquee-reverse var(--duration, 40s) linear infinite;
+  --animate-meteor: meteor 5s linear infinite;
+  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-border-beam: border-beam calc(var(--duration) * 1s) infinite linear;
+  --animate-aurora: aurora 60s linear infinite;
 }
 
 * {
@@ -83,4 +99,118 @@ body {
   color: var(--color-paragraph);
   font-family: var(--font-inter), system-ui, sans-serif;
   line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display,
+.font-serif {
+  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+  letter-spacing: -0.015em;
+}
+
+header nav a {
+  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+}
+
+::selection {
+  background: rgba(196, 164, 132, 0.28);
+  color: var(--color-navy);
+}
+
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes meteor {
+  0% {
+    transform: rotate(215deg) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(215deg) translateX(-500px);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes border-beam {
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
+}
+
+.animate-spotlight {
+  animation: var(--animate-spotlight);
+}
+
+.animate-marquee {
+  animation: var(--animate-marquee);
+}
+
+.animate-marquee-reverse {
+  animation: var(--animate-marquee-reverse);
+}
+
+.animate-meteor {
+  animation: var(--animate-meteor);
+}
+
+.animate-shimmer {
+  animation: var(--animate-shimmer);
+}
+
+.animate-border-beam {
+  animation: var(--animate-border-beam);
+}
+
+.animate-aurora {
+  animation: var(--animate-aurora);
 }

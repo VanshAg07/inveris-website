@@ -1,9 +1,10 @@
 import { Check, Diamond, TrendingUp } from "lucide-react";
 import { GoGoal } from "react-icons/go";
 import { PiEyeLight } from "react-icons/pi";
-import { Card } from "@/components/ui/Card";
 import { IconCircle } from "@/components/ui/IconCircle";
 import { SectionTag } from "@/components/ui/SectionTag";
+import { MagicCard } from "@/components/magic/magic-card";
+import { BorderBeam } from "@/components/magic/border-beam";
 import { cn } from "@/lib/cn";
 
 type CardIcon = "target" | "eye";
@@ -41,19 +42,15 @@ export function MissionVisionCard({
   const FooterIcon = footerIconMap[footer.icon as keyof typeof footerIconMap] ?? footerIconMap.diamond;
 
   return (
-    <Card className={cn("p-6 lg:p-8 flex flex-col h-full", className)}>
+    <MagicCard className={cn("p-6 lg:p-8 flex flex-col h-full bg-white/70 backdrop-blur-2xl", className)}>
+      <BorderBeam size={80} duration={11} />
       <IconCircle variant="navy" size="md" className="mb-6">
         <CardIcon size={36} />
       </IconCircle>
-
-      <SectionTag withLine className="mb-4">
-        {tag}
-      </SectionTag>
-
+      <SectionTag className="mb-4">{tag}</SectionTag>
       <h3 className="text-xl md:text-2xl font-bold text-heading leading-snug mb-6">
         {title}
       </h3>
-
       <ul className="space-y-4 mb-8 flex-1">
         {items.map((item) => (
           <li key={item} className="flex gap-3 text-sm text-paragraph leading-relaxed">
@@ -64,20 +61,16 @@ export function MissionVisionCard({
           </li>
         ))}
       </ul>
-
-      <div className="rounded-lg border border-white/40 bg-white/35 p-4 flex items-start gap-3 backdrop-blur-md">
+      <div className="rounded-2xl border border-white/50 bg-white/50 p-4 flex items-start gap-3 backdrop-blur-md">
         <FooterIcon size={20} className="text-gold shrink-0 mt-0.5" strokeWidth={1.5} />
         {"prefix" in footer ? (
           <p className="text-sm text-heading leading-relaxed">
-            {footer.prefix}{" "}
-            <strong className="font-semibold">{footer.highlight}</strong>
+            {footer.prefix} <strong className="font-semibold">{footer.highlight}</strong>
           </p>
         ) : (
-          <p className="text-sm font-semibold text-heading leading-relaxed">
-            {footer.text}
-          </p>
+          <p className="text-sm font-semibold text-heading leading-relaxed">{footer.text}</p>
         )}
       </div>
-    </Card>
+    </MagicCard>
   );
 }

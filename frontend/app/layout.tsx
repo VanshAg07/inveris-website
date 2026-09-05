@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import { SiteFrame } from "@/components/layout/SiteFrame";
 import { siteConfig } from "@/lib/content";
 import { fetchFooterContent } from "@/lib/footer-content";
@@ -7,6 +7,12 @@ import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
   display: "swap",
 });
@@ -50,7 +56,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const footer = await fetchFooterContent();
 
   return (
-    <html lang="en" className={`${inter.variable} h-full scroll-smooth antialiased`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} h-full scroll-smooth antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         <SiteFrame footer={footer}>{children}</SiteFrame>
       </body>

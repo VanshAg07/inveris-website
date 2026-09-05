@@ -29,7 +29,7 @@ export function SectionHeading({
       {tag && <SectionTag light={light}>{tag}</SectionTag>}
       <h2
         className={cn(
-          "text-3xl md:text-4xl font-bold leading-tight",
+          "text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.12] tracking-tight",
           light ? "text-heading-inverse" : "text-heading"
         )}
       >
